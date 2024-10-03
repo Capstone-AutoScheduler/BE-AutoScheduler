@@ -16,20 +16,12 @@ public class Member extends BaseEntity {
     @Column(name = "member_id", nullable = false, columnDefinition = "bigint")
     private Long memberId;
 
-    @Column(name = "email", nullable = false, columnDefinition = "varchar(256)")
-    private String email;
+    @Column(name = "name", nullable = false, columnDefinition = "varchar(256)")
+    private String name;
+
+    @Column(name = "userName", nullable = false, columnDefinition = "varchar(256)")
+    private String userName;
 
     @Column(name = "password", nullable = false, columnDefinition = "varchar(256)")
     private String password;
-
-    @Column(name = "nickname", nullable = false, columnDefinition = "varchar(256)")
-    private String nickname;
-
-    @Column(name = "birth", columnDefinition = "varchar(256)")
-    private String birth;
-
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    public enum Gender {Male, Female}
 }
