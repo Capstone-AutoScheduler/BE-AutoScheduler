@@ -1,31 +1,31 @@
 # github repository actions 페이지에 나타날 이름
-name: CI/CD using github actions & docker
+name: AutoScheduler github actions CI/CD
 
 # event trigger
 # main이나 develop 브랜치에 push가 되었을 때 실행
 on:
-  push:
-    branches: [ "develop" ]  #[ "main", "develop" ]
+  pull_request:
+    branches:
+      - develop
 
-permissions:
-  contents: read
+permissions: write-all
 
 jobs:
-  CI-CD:
+  build:
     runs-on: ubuntu-latest
     steps:
-
-      # JDK setting - github actions에서 사용할 JDK 설정 (프로젝트나 AWS의 java 버전과 달라도 무방)
-      - uses: actions/checkout@v3
+      # 소스 코드 체크아웃
+      - uses: actions/checkout@v4
+      # Build를 위한 JDK 설치
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'corretto'
 
       # gradle caching - 빌드 시간 향상
       - name: Gradle Caching
-        uses: actions/cache@v3
+        uses: actions/cache@v4.0.2
         with:
           path: |
             ~/.gradle/caches
@@ -36,42 +36,49 @@ jobs:
 
       # yml 파일 생성 - application.yml
       - name: make application.yml
-        if: |
-          contains(github.ref, 'main') ||
-          contains(github.ref, 'develop')
         run: |
-          cd ./src/main/resources # resources 폴더로 이동
-          touch ./application.yml # application.yml 생성
-          echo "${{ secrets.YML }}" > ./application.yml # github actions에서 설정한 값을 application.yml 파일에 쓰기
+          cd ./src/main
+          mkdir resources
+          cd ./resources
+          touch ./application.yml  
+          echo "${{ secrets.YML }}" > ./application.yml
         shell: bash
-
+      # Gradle 권한 부여
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      # gradle build
+      # gradle clean bootJar
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        #run: ./gradlew build -x test
+        run: ./gradlew clean bootJar
 
-      # docker build & push to develop
-      - name: Docker build & push to dev
-        if: contains(github.ref, 'develop')
+      # resources 디렉토리 내용 출력 (디버깅용)
+      - name: List resources directory
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/docker-test .
-          docker push ${{ secrets.DOCKER_USERNAME }}/docker-test
+          ls -l ./src/main/resources
+          if [ -f ./src/main/resources/adjective.txt ]; then echo "adjective.txt exists"; else echo "adjective.txt does not exist"; fi
+        shell: bash
+
+      # Docker Image Push
+      - name: Docker Image push
+        run: |
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME}}/${{ secrets.DOCKERHUB_REPOSITORY}} ./
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY}}
 
       ## deploy to develop
-      - name: Deploy to dev
+      - name: Docker Compose
         uses: appleboy/ssh-action@master
-        id: deploy
-        if: contains(github.ref, 'develop')
         with:
-          host: ${{ secrets.HOST_DEV }} # EC2 퍼블릭 IPv4 DNS
+          host: ${{ secrets.EC2_SERVER_IP }} # EC2 퍼블릭 IPv4 DNS
           username: ${{ secrets.USERNAME }} # ubuntu
-          password: ${{ secrets.PASSWORD }}
-          port: 22
-          key: ${{ secrets.PRIVATE_KEY }}
+          #password: ${{ secrets.PASSWORD }}
+          #ort: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo docker ps
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test
-            sudo docker run -d -p 8081:8081 ${{ secrets.DOCKER_USERNAME }}/docker-test
-            sudo docker image prune -f
+            cd .ssh/BE-AutoScheduler/
+            sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+            sudo docker-compose stop ${{ secrets.DOCKER_SERVICE_NAME }}
+            sudo docker-compose rm -f ${{ secrets.DOCKER_SERVICE_NAME }}
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY}}
+            sudo docker tag ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY}} ${{ secrets.DOCKER_IMAGE_NAME }}
+            sudo docker compose up -d
