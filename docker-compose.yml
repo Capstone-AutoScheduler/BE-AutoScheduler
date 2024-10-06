@@ -1,0 +1,5 @@
+#version: '2.28.1'
+
+networks:
+  autoscheduler_network:
+    driver: bridge
