@@ -35,11 +35,12 @@ jobs:
             ${{ runner.os }}-gradle-
 
       # yml 파일 생성 - application.yml
+      #cd ./src/main
+      #mkdir resources
       - name: make application.yml
         run: |
-          cd ./src/main
-          mkdir resources
-          cd ./resources
+          
+          cd ./src/main/resources
           touch ./application.yml  
           echo "${{ secrets.YML }}" > ./application.yml
         shell: bash
