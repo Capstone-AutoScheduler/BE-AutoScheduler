@@ -12,7 +12,7 @@ permissions: write-all
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04.1
     steps:
       # 소스 코드 체크아웃
       - uses: actions/checkout@v4
@@ -34,6 +34,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      # Gradle 권한 부여
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       # yml 파일 생성 - application.yml
       #cd ./src/main
       #mkdir resources
@@ -44,12 +48,9 @@ jobs:
           touch ./application.yml  
           echo "${{ secrets.YML }}" > ./application.yml
         shell: bash
-      # Gradle 권한 부여
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+
       # gradle clean bootJar
-      - name: Build with Gradle
-        #run: ./gradlew build -x test
+      - name: Build Gradle
         run: ./gradlew clean bootJar
 
       # resources 디렉토리 내용 출력 (디버깅용)
