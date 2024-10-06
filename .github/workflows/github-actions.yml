@@ -12,7 +12,7 @@ permissions: write-all
 
 jobs:
   build:
-    runs-on: ubuntu-22
+    runs-on: ubuntu-latest
     steps:
       # 소스 코드 체크아웃
       - uses: actions/checkout@v4
