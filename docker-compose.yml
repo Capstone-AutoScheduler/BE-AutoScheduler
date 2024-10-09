@@ -5,7 +5,7 @@ services:
   my_service:
     image: nginx:latest
     networks:
-      - autoscheduler_network
+      - autoscheduler-network
 
   app:
     build:
