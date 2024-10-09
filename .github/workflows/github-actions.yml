@@ -1,8 +1,5 @@
-# github repository actions 페이지에 나타날 이름
 name: AutoScheduler github actions CI/CD
 
-# event trigger
-# main이나 develop 브랜치에 push가 되었을 때 실행
 on:
   pull_request:
     branches:
@@ -44,7 +41,6 @@ jobs:
       - name: make application.yml
         run: |
           cd ./src/main/resources
-          
           touch ./application.yml  
           echo "${{ secrets.YML }}" > ./application.yml
         shell: bash
