@@ -40,3 +40,9 @@ services:
     container_name: AutoScheduler-web
     ports:
       - "8080:8080"
+    networks:
+      - autoscheduler_network  # 네트워크 명시
+networks:
+  autoscheduler_network:
+    driver: bridge
+
