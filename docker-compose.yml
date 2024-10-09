@@ -9,9 +9,9 @@ services:
     container_name: autoscheduler-web
     ports:
       - "8080:8080"
-    networks:
-      - capstone_autoscheduler_network
-networks:
-  capstone_autoscheduler_network:
-    driver: bridge
-    #
+#    networks:
+#      - capstone_autoscheduler_network
+#networks:
+#  capstone_autoscheduler_network:
+#    driver: bridge
+#    #
