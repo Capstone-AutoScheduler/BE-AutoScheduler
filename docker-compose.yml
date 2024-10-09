@@ -10,7 +10,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - autoscheduler_network
+      - capstone_autoscheduler_network
 networks:
-  autoscheduler_network:
+  capstone_autoscheduler_network:
     driver: bridge
