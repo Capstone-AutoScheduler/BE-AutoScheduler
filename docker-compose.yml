@@ -1,6 +1,19 @@
 
 version: '3.8'
 services:
+
+  postgres:
+    image: postgres:latest
+    container_name: autoschedulerdb
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: ${POSTGRES_DB_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PW}
+    ports:
+      - "6543:6543"
+    networks:
+      - autoscheduler-network
+
   app:
     build:
       context: .
@@ -9,8 +22,14 @@ services:
     container_name: autoscheduler-web
     ports:
       - "8080:8080"
+    depends_on:
+        - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
+      SPRING_DATASOURCE_USERNAME: postgres.ifyemrcvodlktfpzbsud
+      SPRING_DATASOURCE_PASSWORD: capstoneteam04kimparksong
     networks:
-      - capstone_network
+      - autoscheduler-network
 networks:
-  capstone_network:
+  autoscheduler-network:
     driver: bridge
