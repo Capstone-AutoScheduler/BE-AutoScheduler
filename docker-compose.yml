@@ -11,6 +11,6 @@ services:
       - "8080:8080"
     networks:
       - autoscheduler_network
-#networks:
-#  autoscheduler_network:
-#    driver: bridge
+networks:
+  autoscheduler_network:
+    driver: bridge
