@@ -1,6 +1,7 @@
 package Capstone.AutoScheduler.global.domain.entity;
 
 import Capstone.AutoScheduler.global.domain.common.BaseEntity;
+import Capstone.AutoScheduler.global.web.dto.Event.EventRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,4 +37,19 @@ public class Event extends BaseEntity {
     @Column(name = "end_date", nullable = false, columnDefinition = "timestamp")
     private LocalDateTime endDate;
 
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+
+    public void update(EventRequestDTO.UpdateEventDTO request) {
+        this.eventTitle = request.getEventTitle();
+        this.eventBody = request.getEventBody();
+        this.startDate = request.getStartDate();
+        this.endDate = request.getEndDate();
+    }
+
 }
+
+

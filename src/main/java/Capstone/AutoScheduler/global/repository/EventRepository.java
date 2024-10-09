@@ -1,4 +1,7 @@
 package Capstone.AutoScheduler.global.repository;
 
-public interface EventRepository {
+import Capstone.AutoScheduler.global.domain.entity.Event;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EventRepository extends JpaRepository<Event, Long> {
 }
