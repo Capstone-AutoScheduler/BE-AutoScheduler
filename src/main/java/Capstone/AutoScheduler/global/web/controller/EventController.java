@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "이벤트 일정 API", description = "이벤트 일정 생성/수정/삭제/조회 관련 API입니다.")
 public class EventController {
     private final EventCommandService eventCommandService;
-    //private final EventQueryService eventQueryService;
+    private final EventQueryService eventQueryService;
     private final MemberCommandService memberCommandService;
 
     // 이벤트 일정 생성하기
@@ -52,9 +54,13 @@ public class EventController {
         return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, null);
     }
 
-
     // 이벤트 일정 조회하기
-
+    @GetMapping("/member/{memberId}")
+    @Operation(summary = "사용자의 이벤트 일정 리스트 조회 API", description = "사용자의 이벤트 일정 전체 리스트를 조회합니다.")
+    public ApiResponse<EventResponseDTO.MemberEventPreviewListDTO> findEventsByMember(@PathVariable Long memberId) {
+        List<Event> memberEventList = eventQueryService.getMemberEvent(memberId);
+        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewListDTO(memberEventList));
+    }
 
 
 

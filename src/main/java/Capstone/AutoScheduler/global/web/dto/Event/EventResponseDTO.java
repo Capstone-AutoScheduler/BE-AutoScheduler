@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class EventResponseDTO {
 
@@ -33,6 +34,32 @@ public class EventResponseDTO {
         String eventBody;
         LocalDateTime startDate;
         LocalDateTime endDate;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberEventPreviewDTO {
+        Long memberId;
+        Long eventId;
+        String eventTitle;
+        String eventBody;
+        LocalDateTime startDate;
+        LocalDateTime endDate;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberEventPreviewListDTO {
+        List<MemberEventPreviewDTO> events;
+//        Integer listSize;
+//        Integer totalPage;
+//        Long totalElements;
+//        boolean isFirst;
+//        boolean isLast;
     }
 
 
