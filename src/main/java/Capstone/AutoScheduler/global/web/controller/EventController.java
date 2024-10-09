@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "이벤트 일정 API", description = "이벤트 일정 생성/수정/삭제/조회 관련 API입니다.")
 public class EventController {
     private final EventCommandService eventCommandService;
-    //private final EventQueryService eventQueryService;
+    private final EventQueryService eventQueryService;
     private final MemberCommandService memberCommandService;
 
     // 이벤트 일정 생성하기
@@ -52,10 +54,28 @@ public class EventController {
         return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, null);
     }
 
+    // 사용자의 이벤트 일정 전체 리스트 조회하기
+    @GetMapping("/member/{memberId}")
+    @Operation(summary = "사용자의 이벤트 일정 리스트 조회 API", description = "사용자의 이벤트 일정 전체 리스트를 조회합니다.")
+    public ApiResponse<EventResponseDTO.MemberEventPreviewListDTO> findEventsByMember(@PathVariable Long memberId) {
+        List<Event> memberEventList = eventQueryService.getMemberEvent(memberId);
+        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewListDTO(memberEventList));
+    }
 
-    // 이벤트 일정 조회하기
+    // 사용자의 날짜별 이벤트 일정 전체 리스트 조회하기
+    @GetMapping("/member/{memberId}/date/{date}")
+    @Operation(summary = "사용자의 날짜별 이벤트 일정 리스트 조회 API", description = "사용자의 날짜별 이벤트 일정 전체 리스트를 조회합니다.")
+    public ApiResponse<EventResponseDTO.MemberEventPreviewListDTO> findEventsByMemberAndDate(@PathVariable Long memberId, @PathVariable String date) {
+        List<Event> memberEventList = eventQueryService.getMemberEventByDate(memberId, date);
+        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewListDTO(memberEventList));
+    }
 
-
-
+    // 사용자의 특정 이벤트 조회하기
+    @GetMapping("/member/{memberId}/event/{eventId}")
+    @Operation(summary = "사용자의 특정 이벤트 조회 API", description = "사용자의 특정 이벤트를 조회합니다.")
+    public ApiResponse<EventResponseDTO.MemberEventPreviewDTO> findEventByMemberAndEvent(@PathVariable Long memberId, @PathVariable Long eventId) {
+        Event event = eventQueryService.getEvent(memberId, eventId);
+        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewDTO(event));
+    }
 
 }

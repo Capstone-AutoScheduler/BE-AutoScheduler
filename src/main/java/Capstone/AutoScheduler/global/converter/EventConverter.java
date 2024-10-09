@@ -4,6 +4,10 @@ import Capstone.AutoScheduler.global.domain.entity.Event;
 import Capstone.AutoScheduler.global.web.dto.Event.EventRequestDTO;
 import Capstone.AutoScheduler.global.web.dto.Event.EventResponseDTO;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class EventConverter {
 
     public static Event toEvent(EventRequestDTO.CreateEventRequestDTO request) {
@@ -33,6 +37,28 @@ public class EventConverter {
                 .eventBody(event.getEventBody())
                 .startDate(event.getStartDate())
                 .endDate(event.getEndDate())
+                .build();
+    }
+
+    public static EventResponseDTO.MemberEventPreviewDTO toMemberEventPreviewDTO(Event event) {
+        return EventResponseDTO.MemberEventPreviewDTO.builder()
+                .memberId(event.getMember().getMemberId())
+                .eventId(event.getEventId())
+                .eventTitle(event.getEventTitle())
+                .eventBody(event.getEventBody())
+                .startDate(event.getStartDate())
+                .endDate(event.getEndDate())
+                .build();
+    }
+
+    public static EventResponseDTO.MemberEventPreviewListDTO toMemberEventPreviewListDTO(
+            List<Event> eventList
+    ){
+        List<EventResponseDTO.MemberEventPreviewDTO> memberEventPreviewDTOList = IntStream.range(0, eventList.size())
+                .mapToObj(i->toMemberEventPreviewDTO(eventList.get(i)))
+                .collect(Collectors.toList());
+        return EventResponseDTO.MemberEventPreviewListDTO.builder()
+                .events(memberEventPreviewDTOList)
                 .build();
     }
 
