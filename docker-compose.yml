@@ -2,10 +2,10 @@
 version: '3'
 
 services:
-  my_service:
-    image: nginx:latest
-    networks:
-      - autoscheduler-network
+#  my_service:
+#    image: nginx:latest
+#    networks:
+#      - autoscheduler-network
 
   app:
     build:
@@ -16,10 +16,10 @@ services:
     ports:
       - "8080:8080"
     #depends_on:
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
-      SPRING_DATASOURCE_USERNAME: postgres.ifyemrcvodlktfpzbsud
-      SPRING_DATASOURCE_PASSWORD: capstoneteam04kimparksong
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
+#      SPRING_DATASOURCE_USERNAME: postgres.ifyemrcvodlktfpzbsud
+#      SPRING_DATASOURCE_PASSWORD: capstoneteam04kimparksong
     networks:
       - autoscheduler-network
 
