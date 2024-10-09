@@ -40,7 +40,18 @@ public class EventQueryServiceImpl implements EventQueryService {
                 MemberEventListByDate.add(event);
             }
         }
-
         return MemberEventListByDate;
+    }
+
+    @Override
+    public Event getEvent(Long memberId, Long eventId) {
+        Member getMember = memberRepository.findById(memberId).get();
+        Event getEvent = eventRepository.findById(eventId).get();
+
+        if (getEvent.getMember().equals(getMember)) {
+            return getEvent;
+        } else {
+            return null;
+        }
     }
 }
