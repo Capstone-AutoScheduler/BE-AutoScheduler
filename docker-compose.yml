@@ -7,6 +7,22 @@ services:
     networks:
       - autoscheduler_network
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: harryest/capstone:latest
+    container_name: Autoscheduler
+    ports:
+      - "8080:8080"
+#    depends_on:
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/codiarydb?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: rootpassword
 networks:
-  autoscheduler_network:
-    driver: bridge
+    autoscheduler_network:
+      driver: bridge
+
+
+
