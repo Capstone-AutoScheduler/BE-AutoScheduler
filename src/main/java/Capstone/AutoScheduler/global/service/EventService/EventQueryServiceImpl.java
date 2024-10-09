@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,5 +27,20 @@ public class EventQueryServiceImpl implements EventQueryService {
         List<Event> MemberEventList = eventRepository.findAllByMember(getMember);
 
         return MemberEventList;
+    }
+
+    @Override
+    public List<Event> getMemberEventByDate(Long memberId, String date) {
+        Member getMember = memberRepository.findById(memberId).get();
+        List<Event> MemberEventList = eventRepository.findAllByMember(getMember);
+        List<Event> MemberEventListByDate = new ArrayList<>();
+
+        for (Event event : MemberEventList) {
+            if (event.getStartDate().toString().contains(date)) {
+                MemberEventListByDate.add(event);
+            }
+        }
+
+        return MemberEventListByDate;
     }
 }

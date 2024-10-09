@@ -54,7 +54,7 @@ public class EventController {
         return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, null);
     }
 
-    // 이벤트 일정 조회하기
+    // 사용자의 이벤트 일정 전체 리스트 조회하기
     @GetMapping("/member/{memberId}")
     @Operation(summary = "사용자의 이벤트 일정 리스트 조회 API", description = "사용자의 이벤트 일정 전체 리스트를 조회합니다.")
     public ApiResponse<EventResponseDTO.MemberEventPreviewListDTO> findEventsByMember(@PathVariable Long memberId) {
@@ -62,6 +62,12 @@ public class EventController {
         return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewListDTO(memberEventList));
     }
 
-
+    // 사용자의 날짜별 이벤트 일정 전체 리스트 조회하기
+    @GetMapping("/member/{memberId}/date/{date}")
+    @Operation(summary = "사용자의 날짜별 이벤트 일정 리스트 조회 API", description = "사용자의 날짜별 이벤트 일정 전체 리스트를 조회합니다.")
+    public ApiResponse<EventResponseDTO.MemberEventPreviewListDTO> findEventsByMemberAndDate(@PathVariable Long memberId, @PathVariable String date) {
+        List<Event> memberEventList = eventQueryService.getMemberEventByDate(memberId, date);
+        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewListDTO(memberEventList));
+    }
 
 }

@@ -7,5 +7,5 @@ import java.util.List;
 public interface EventQueryService {
 
     List<Event> getMemberEvent(Long memberId);
-
+    List<Event> getMemberEventByDate(Long memberId, String date);
 }
