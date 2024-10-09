@@ -6,11 +6,11 @@ services:
       context: .
       dockerfile: Dockerfile
     image: harryest/capstone:latest
-    container_name: AutoScheduler-web
+    container_name: autoscheduler-web
     ports:
       - "8080:8080"
-#    networks:
-#      - autoscheduler_network
+    networks:
+      - autoscheduler_network
 #networks:
 #  autoscheduler_network:
 #    driver: bridge
