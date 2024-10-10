@@ -72,7 +72,7 @@ public class EventController {
 
     // 사용자의 특정 이벤트 조회하기
     @GetMapping("/member/{memberId}/event/{eventId}")
-    @Operation(summary = "사용자의 특정 이벤트 조회 API", description = "사용자의 특정 이벤트를 조회합니다.")
+    @Operation(summary = "사용자의 특정 이벤트 조회 API", description = "사용자의 특정 이벤트 일정을 조회합니다.")
     public ApiResponse<EventResponseDTO.MemberEventPreviewDTO> findEventByMemberAndEvent(@PathVariable Long memberId, @PathVariable Long eventId) {
         Event event = eventQueryService.getEvent(memberId, eventId);
         return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewDTO(event));

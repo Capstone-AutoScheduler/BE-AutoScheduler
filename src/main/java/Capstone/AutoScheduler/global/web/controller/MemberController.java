@@ -27,19 +27,14 @@ public class MemberController {
     // 회원가입
     @Operation(summary = "회원가입", description = "캘린더 사용을 위한 회원가입을 진행합니다.")
     @PostMapping("/sign_up")
-    public ApiResponse<MemberResponseDTO.CreateMemberResultDTO> createMember(
-            @RequestBody MemberRequestDTO.CreateMemberRequestDTO request
-    ) {
+    public ApiResponse<MemberResponseDTO.CreateMemberResultDTO> createMember(@RequestBody MemberRequestDTO.CreateMemberRequestDTO request) {
         Member newMember = memberCommandService.createMember(request);
         return ApiResponse.onSuccess(SuccessStatus.MEMBER_OK,MemberConverter.toCreateResultDTO(newMember));
     }
-
     // 로그인
     @Operation(summary = "로그인", description = "로그인을 진행합니다.")
     @PostMapping("/sign_in")
-    public ApiResponse<MemberResponseDTO.SignInResultDTO> signIn(
-            @RequestBody MemberRequestDTO.SignInRequestDTO request
-    ) {
+    public ApiResponse<MemberResponseDTO.SignInResultDTO> signIn(@RequestBody MemberRequestDTO.SignInRequestDTO request) {
         Member findMember = memberQueryService.signIn(request);
         return ApiResponse.onSuccess(SuccessStatus.MEMBER_OK, MemberConverter.toSignInResultDTO(findMember));
     }
