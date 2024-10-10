@@ -7,12 +7,12 @@ services:
         container_name: autoscheduler-web
         ports:
         - "8080:8080"
-        depends_on:
-            - postgres
-        environment:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
-          SPRING_DATASOURCE_USERNAME: postgres.ifyemrcvodlktfpzbsud
-          SPRING_DATASOURCE_PASSWORD: capstoneteam04kimparksong
+#        depends_on:
+#            - postgres
+#        environment:
+#          SPRING_DATASOURCE_URL: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
+#          SPRING_DATASOURCE_USERNAME: postgres.ifyemrcvodlktfpzbsud
+#          SPRING_DATASOURCE_PASSWORD: capstoneteam04kimparksong
         networks:
         - autoscheduler_network
 networks:
