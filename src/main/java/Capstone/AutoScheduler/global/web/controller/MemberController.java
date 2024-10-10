@@ -25,7 +25,7 @@ public class MemberController {
     private final MemberQueryService memberQueryService;
 
     // 회원가입
-    @Operation(summary = "회원가입", description = "회원가입을 진행합니다.")
+    @Operation(summary = "회원가입", description = "캘린더 사용을 위한 회원가입을 진행합니다.")
     @PostMapping("/sign_up")
     public ApiResponse<MemberResponseDTO.CreateMemberResultDTO> createMember(
             @RequestBody MemberRequestDTO.CreateMemberRequestDTO request
