@@ -71,22 +71,20 @@ jobs:
           username: ${{ secrets.USERNAME }} # ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-#            cd .ssh/BE-AutoScheduler/
-#            sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-#            sudo docker-compose stop ${{ secrets.DOCKER_SERVICE_NAME }}
-#            sudo docker-compose rm -f ${{ secrets.DOCKER_SERVICE_NAME }}
-#            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY}}
-#            sudo docker tag ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY}} ${{ secrets.DOCKER_IMAGE_NAME }}
-#            sudo docker-compose up -d
             cd .ssh/BE-AutoScheduler/
-            sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+            # Docker Hub 로그인 (password-stdin 사용)
+            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
             # 기존 컨테이너 중지 및 제거
             sudo docker stop autoscheduler-web || true
             sudo docker rm autoscheduler-web || true
+
             # 최신 이미지 가져오기
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}
+
             # 새 컨테이너 실행
             sudo docker run -d \
-            --name autoscheduler-web \
-            -p 8080:8080 \
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}
+              --name autoscheduler-web \
+              -p 8080:8080 \
+              ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}
