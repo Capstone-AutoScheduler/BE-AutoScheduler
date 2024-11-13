@@ -1,40 +1,51 @@
 package Capstone.AutoScheduler.global.service.SeleniumService;
 
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class WebCrawlerService {
-//
-//    public String getHtmlContent(String url) {
-//        System.setProperty("webdriver.chrome.driver", "/Users/parkjh/3-2학기/캡스톤_07분반/chromedriver-mac-arm64"); // ChromeDriver 경로 설정
-//
-//        WebDriver driver = new ChromeDriver();
-//        try {
-//            driver.get(url);
-//            return driver.getPageSource(); // 전체 HTML 반환
-//        } finally {
-//            driver.quit();
-//        }
-//    }
-//}
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Service;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class WebCrawlerService {
 
     public String getHtmlContent(String url) {
-        WebDriver driver = new SafariDriver(); // SafariDriver 사용
+        WebDriver driver = null;
+
         try {
+            validateUrl(url);
+
+            driver = new SafariDriver();
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
             driver.get(url);
-            return driver.getPageSource(); // HTML 반환
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
+
+            return driver.getPageSource();
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다: " + url);
+        } catch (Exception e) {
+            throw new RuntimeException("크롤링 중 오류가 발생했습니다: " + e.getMessage());
         } finally {
-            driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
+        }
+    }
+
+    private void validateUrl(String url) throws MalformedURLException {
+        URL parsedUrl = new URL(url);
+
+        if (!"https".equalsIgnoreCase(parsedUrl.getProtocol())) {
+            throw new IllegalArgumentException("HTTPS 프로토콜만 지원합니다.");
         }
     }
 }
-
