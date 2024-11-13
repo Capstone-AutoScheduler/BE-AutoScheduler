@@ -26,7 +26,6 @@ repositories {
 dependencies {
 	// Spring Boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
@@ -60,6 +59,12 @@ dependencies {
 
 	// JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Selenium
+	//implementation 'org.seleniumhq.selenium:selenium-java:4.6.0'
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.8.0'
+	implementation 'io.github.bonigarcia:webdrivermanager:5.3.0'
+
 }
 
 tasks.named('test') {
