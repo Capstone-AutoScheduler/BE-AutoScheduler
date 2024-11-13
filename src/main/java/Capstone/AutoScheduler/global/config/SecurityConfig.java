@@ -1,7 +1,6 @@
 package Capstone.AutoScheduler.global.config;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +18,7 @@ public class SecurityConfig {
         return http
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 // Member 관련 접근
@@ -27,6 +26,8 @@ public class SecurityConfig {
                                 .requestMatchers("/members/**").permitAll()
                                 // Event 관련 접근
                                 .requestMatchers("/events/", "/events/{eventId}", "/events/member/{memberId}", "/events/member/{memberId}/event/{eventId}", "/events/member/{memberId}/date/{date}").permitAll()
+                                // Crawling 관련 접근
+                                .requestMatchers("/crawl").permitAll() // /crawl 경로 접근 허용
                                 // 기타 관련 접근
                                 .requestMatchers("/", "/api-docs/**", "/api-docs/swagger-config/*", "/swagger-ui/*", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
