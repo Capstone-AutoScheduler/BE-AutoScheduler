@@ -40,6 +40,9 @@ public class Generator extends BaseEntity {
     @OneToMany(mappedBy = "generator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Event> events = new ArrayList<>();
 
+    @OneToMany(mappedBy = "generator", cascade = CascadeType.ALL, orphanRemoval = true,  fetch = FetchType.EAGER)
+    private List<Bookmark> bookmarkList = new ArrayList<>();
+
     public void addEvent(Event event) {
         this.events.add(event);
         event.setGenerator(this);

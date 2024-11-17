@@ -7,6 +7,7 @@ import Capstone.AutoScheduler.global.domain.entity.Source;
 import Capstone.AutoScheduler.global.repository.GeneratorRepository;
 import Capstone.AutoScheduler.global.repository.MemberRepository;
 import Capstone.AutoScheduler.global.repository.SourceRepository;
+import Capstone.AutoScheduler.global.service.BookmarkService.BookmarkCommandService;
 import Capstone.AutoScheduler.global.web.dto.Generator.GeneratorRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class GeneratorCommandServiceImpl implements GeneratorCommandService {
     private final MemberRepository memberRepository;
     private final GeneratorRepository generateRepository;
     private final SourceRepository sourceRepository;
+    private final BookmarkCommandService bookmarkCommandService;
 
     @Override
     public Generator createGenerator(Long memberId, Long sourceId, GeneratorRequestDTO.CreateGeneratorRequestDTO request) {
@@ -32,6 +34,10 @@ public class GeneratorCommandServiceImpl implements GeneratorCommandService {
         newGenerator.setSource(getSource);
 
         Generator savedGenerator = generateRepository.save(newGenerator);
+
+        // 자신이 만든 일정 생성기는 자동으로 북마크 추가
+        bookmarkCommandService.createBookmark(memberId, savedGenerator.getGeneratorId());
+
         return savedGenerator;
     }
 }
