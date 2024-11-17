@@ -22,10 +22,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 // Member 관련 접근
-                                .requestMatchers("/members/sign-up", "/members/sign-in").permitAll()
-                                .requestMatchers("/members/**").permitAll()
+                                .requestMatchers("/member/sign-up", "/member/sign-in").permitAll()
+                                .requestMatchers("/member/**").permitAll()
                                 // Event 관련 접근
-                                .requestMatchers("/events/", "/events/{eventId}", "/events/member/{memberId}", "/events/member/{memberId}/event/{eventId}", "/events/member/{memberId}/date/{date}").permitAll()
+                                .requestMatchers("/event/", "/event/{eventId}", "/event/member/{memberId}", "/event/member/{memberId}/event/{eventId}", "/event/member/{memberId}/date/{date}").permitAll()
+                                // Generator 관련 접근
+                                .requestMatchers("/generator/").permitAll()
                                 // Crawling 관련 접근
                                 .requestMatchers("/crawl").permitAll() // /crawl 경로 접근 허용
                                 // 기타 관련 접근

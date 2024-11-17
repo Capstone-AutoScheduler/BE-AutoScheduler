@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 @CrossOrigin
-@RequestMapping("/events")
+@RequestMapping("/event")
 @Slf4j
 //@Tag(name = "이벤트 일정 API", description = "이벤트 일정 생성/수정/삭제/조회 관련 API입니다.")
 public class EventController {
