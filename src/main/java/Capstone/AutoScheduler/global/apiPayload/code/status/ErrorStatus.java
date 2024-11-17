@@ -31,34 +31,24 @@ public enum ErrorStatus implements BaseErrorCode {
     TECH_STACK_ALREADY_EXISTS(HttpStatus.CONFLICT, "MEMBER_1111", "이미 존재하는 기술스택입니다."),
     PROJECT_ALREADY_EXISTS(HttpStatus.CONFLICT, "MEMBER_1112", "이미 존재하는 프로젝트입니다."),
 
-    // 팀 관련 에러 2000
-    TEAM_NOT_FOUND(HttpStatus.BAD_REQUEST, "TEAM_2001", "팀이 없습니다."),
-    TEAM_NAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "TEAM_2002", "팀 이름입력은 필수 입니다."),
-    TEAM_ALREADY_EXISTS(HttpStatus.CONFLICT, "TEAM_2003", "이미 존재하는 팀입니다."),
-    TEAM_ADMIN_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "TEAM_2004", "관리자 권한이 없습니다."),
-    TEAM_MEMBER_ALREADY_EXISTS(HttpStatus.CONFLICT, "TEAM_2005", "이미 존재하는 팀원입니다."),
-    // 포스트 관려 에러 3000
-    POST_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "POST_3001", "포스트 생성 권한이 없습니다."),
-    POST_UPDATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "POST_3002", "포스트 수정 권한이 없습니다."),
-    POST_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "POST_3003", "포스트 삭제 권한이 없습니다."),
-    POST_ADD_MEMBER_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "POST_3004", "포스트에 사용자를 추가할 권한이 없습니다."),
-    POST_MEMBER_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "POST_3005", "포스트 참여자 삭제 권한이 없습니다."),
-    POST_NOT_EXIST_BY_TEAM(HttpStatus.BAD_REQUEST, "POST_3006", "해당 팀의 다이어리 목록이 없습니다."),
-    POST_NOT_EXIST_BY_PROJECT(HttpStatus.BAD_REQUEST, "POST_3007", "해당 프로젝트의 다이어리 목록이 없습니다."),
-    POST_NOT_EXIST_BY_MEMBER(HttpStatus.BAD_REQUEST, "POST_3008", "해당 멤버의 다이어리 목록이 없습니다."),
-    POST_NOT_FOUND(HttpStatus.BAD_REQUEST, "POST_3009", "포스트가 없습니다."),
+    // 일정 관련 에러 2000
 
-    // 코멘트 관련 에러 4000
-    COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST, "COMMENT_4005", "댓글이 없습니다."),
+    // 일정 생성기 관련 에러 3000
+    GENERATOR_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "GENERATOR_3001", "일정 생성기 저장 권한이 없습니다."),
+    GENERATOR_UPDATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "GENERATOR_3002", "일정 생성기 수정 권한이 없습니다."),
+    GENERATOR_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "GENERATOR_3003", "일정 생성기 삭제 권한이 없습니다."),
+    GENERATOR_NOT_EXIST_BY_TEAM(HttpStatus.BAD_REQUEST, "GENERATOR_3006", "해당 목록이 없습니다."),
+    GENERATOR_NOT_EXIST_BY_PROJECT(HttpStatus.BAD_REQUEST, "GENERATOR_3007", "해당 목록이 없습니다."),
+    GENERATOR_NOT_EXIST_BY_MEMBER(HttpStatus.BAD_REQUEST, "GENERATOR_3008", "해당 목록이 없습니다."),
+    GENERATOR_NOT_FOUND(HttpStatus.BAD_REQUEST, "GENERATOR_3009", "일정 생성기가 없습니다."),
 
-
-
-    // 북마크 관련 에러 6000
-//    BOOKMARK_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "BOOKMARK_6001", "북마크 추가 권한이 없습니다."),
-//    BOOKMARK_VIEW_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "BOOKMARK_6002", "북마크 게시글 리스트 조회 권한이 없습니다."),
-//    BOOKMARK_COUNT_ERROR(HttpStatus.BAD_REQUEST, "BOOKMARK_6003", "북마크 개수 계산에 에러가 있습니다."),
-//    BOOKMARK_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "BOOKMARK_6004", "북마크 삭제 권한이 없습니다."),
-    BOOKMARK_NOT_FOUND(HttpStatus.BAD_REQUEST, "BOOKMARK_6005", "북마크가 없습니다."),
+    // 북마크 관련 에러 4000
+    BOOKMARK_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "BOOKMARK_4001", "북마크 추가 권한이 없습니다."),
+    BOOKMARK_VIEW_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "BOOKMARK_4002", "북마크 게시글 리스트 조회 권한이 없습니다."),
+    BOOKMARK_COUNT_ERROR(HttpStatus.BAD_REQUEST, "BOOKMARK_4003", "북마크 개수 계산에 에러가 있습니다."),
+    BOOKMARK_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "BOOKMARK_4004", "북마크 삭제 권한이 없습니다."),
+    BOOKMARK_NOT_FOUND(HttpStatus.BAD_REQUEST, "BOOKMARK_4005", "북마크가 없습니다."),
+    BOOKMARK_DUPLICATE(HttpStatus.BAD_REQUEST, "BOOKMARK_4006", "이미 북마크가 되어있습니다."),
 
     // 카테고리 관련 에러 7000
     CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CATEGORY_7001", "카테고리가 없습니다."),

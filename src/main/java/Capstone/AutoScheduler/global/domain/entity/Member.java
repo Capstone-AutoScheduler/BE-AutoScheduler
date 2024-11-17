@@ -4,6 +4,9 @@ import Capstone.AutoScheduler.global.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,4 +27,10 @@ public class Member extends BaseEntity {
 
     @Column(name = "password", nullable = false, columnDefinition = "varchar(256)")
     private String password;
+
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bookmark> bookmarkList = new ArrayList<>();
+
+
 }
