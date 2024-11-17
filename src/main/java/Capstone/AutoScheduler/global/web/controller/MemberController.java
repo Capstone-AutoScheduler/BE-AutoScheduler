@@ -18,7 +18,7 @@ import Capstone.AutoScheduler.global.web.dto.Member.MemberResponseDTO;
 @RequiredArgsConstructor
 @Validated
 @CrossOrigin
-@RequestMapping("/members")
+@RequestMapping("/member")
 @Slf4j
 public class MemberController {
     private final MemberCommandService memberCommandService;
