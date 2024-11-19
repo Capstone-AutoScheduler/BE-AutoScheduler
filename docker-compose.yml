@@ -1,35 +1,9 @@
-#version: '3.8'
-#services:
-#  web:
-#    build:
-#      dockerfile: Dockerfile
-#    image: harryest/capstone:latest
-#    container_name: autoscheduler-web
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - autoscheduler_network
-#    depends_on:
-#      - selenium-chrome
-#
-#  selenium-chrome:
-#    image: selenium/standalone-chrome:114.0
-#    container_name: selenium_chrome
-#    ports:
-#      - "4444:4444"
-#    networks:
-#      - autoscheduler_network
-#
-#networks:
-#  autoscheduler_network:
-#    driver: bridge
-
 version: '3.8'
 services:
   web:
     build:
-      context: .
-      dockerfile: Dockerfile  # Dockerfile이 있는 위치를 빌드할 수 있도록 설정
+      dockerfile: Dockerfile
+    image: harryest/capstone:latest
     container_name: autoscheduler-web
     ports:
       - "8080:8080"
@@ -49,3 +23,30 @@ services:
 networks:
   autoscheduler_network:
     driver: bridge
+
+#version: '3.8'
+#services:
+#  web:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile  # Dockerfile이 있는 위치를 빌드할 수 있도록 설정
+#    container_name: autoscheduler-web
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - autoscheduler_network
+#    depends_on:
+#      - selenium-chrome
+#
+#  selenium-chrome:
+#    image: selenium/standalone-chrome:114.0
+#    container_name: selenium_chrome
+#    ports:
+#      - "4444:4444"
+#    networks:
+#      - autoscheduler_network
+#
+#networks:
+#  autoscheduler_network:
+#    driver: bridge
+#    external: true
