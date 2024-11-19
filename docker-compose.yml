@@ -1,60 +1,25 @@
 version: '3.8'
 services:
-    web:
-        build:
-          dockerfile: Dockerfile
-        image: harryest/capstone:latest
-        container_name: autoscheduler-web
-        ports:
-        - "8080:8080"
-#        depends_on:
-#            - postgres
-#        environment:
-#          SPRING_DATASOURCE_URL: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
-#          SPRING_DATASOURCE_USERNAME: postgres.plqdmgsctmlrqxuvqsor
-#          SPRING_DATASOURCE_PASSWORD: capstoneteam04kimparksong
-        networks:
-        - autoscheduler_network
+  web:
+    build:
+      dockerfile: Dockerfile
+    image: harryest/capstone:latest
+    container_name: autoscheduler-web
+    ports:
+      - "8080:8080"
+    networks:
+      - autoscheduler_network
+    depends_on:
+      - selenium-chrome
+
+  selenium-chrome:
+    image: selenium/standalone-chrome:114.0
+    container_name: selenium_chrome
+    ports:
+      - "4444:4444"
+    networks:
+      - autoscheduler_network
+
 networks:
   autoscheduler_network:
     driver: bridge
-
-
-
-
-
-
-#version: '3.8'
-#services:
-#
-#  postgres:
-#    image: postgres:latest
-#    container_name: autoschedulerdb
-#    environment:
-#      POSTGRES_DB: postgres
-#      POSTGRES_USER: ${POSTGRES_DB_USERNAME}
-#      POSTGRES_PASSWORD: ${POSTGRES_DB_PW}
-#    ports:
-#      - "6543:5432"
-#    networks:
-#      - autoscheduler_network
-#
-#  app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    image: harryest/capstone:latest
-#    container_name: autoscheduler-web
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#        - postgres
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
-#      SPRING_DATASOURCE_USERNAME: postgres.ifyemrcvodlktfpzbsud
-#      SPRING_DATASOURCE_PASSWORD: capstoneteam04kimparksong
-#    networks:
-#      - autoscheduler_network
-#networks:
-#  autoscheduler_network:
-#    driver: bridge
