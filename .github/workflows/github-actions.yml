@@ -166,12 +166,23 @@ jobs:
 
             # Docker Hub 로그인 (password-stdin 사용)
             echo "${{ secrets.DOCKERHUB_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
-            # 기존 서비스 종료
-            sudo docker-compose down || true
+            
+            # 기존 컨테이너 중지 및 제거
+            sudo docker-compose stop autoscheduler-web || true
+            sudo docker-compose rm autoscheduler-web || true
 
             # 최신 이미지 가져오기
-            sudo docker-compose pull
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}
 
-            # 새 서비스 실행
-            sudo docker-compose up -d
+            # 새 컨테이너 실행
+            sudo docker-compose run -d \
+              --name autoscheduler-web \
+              -p 8080:8080 \
+              ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}
+            
+            
+            
+
+            
+
+            
