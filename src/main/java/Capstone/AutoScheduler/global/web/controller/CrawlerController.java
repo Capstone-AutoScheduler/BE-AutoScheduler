@@ -18,7 +18,7 @@ public class CrawlerController {
     private WebCrawlerService webCrawlerService;
 
     @Operation(
-            summary = "크롤링 API",
+            summary = "웹 크롤링 API",
             description = "URL을 입력하면 해당 페이지의 HTML 소스를 반환합니다."
     )
     @GetMapping("/crawl")
