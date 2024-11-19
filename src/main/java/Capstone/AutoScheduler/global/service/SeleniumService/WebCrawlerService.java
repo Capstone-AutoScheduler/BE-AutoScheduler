@@ -81,7 +81,8 @@ public class WebCrawlerService {
         options.addArguments("--disable-dev-shm-usage");
 
         // WebDriver 설정 (Selenium Grid에 연결)
-        WebDriver driver = new RemoteWebDriver(new URL(seleniumGridUrl), new ChromeOptions());
+        //WebDriver driver = new RemoteWebDriver(new URL(seleniumGridUrl), new ChromeOptions());
+        WebDriver driver = new RemoteWebDriver(new URL("http://selenium-chrome:4444/wd/hub"), options);
 
         try {
             // 지정된 URL로 이동
