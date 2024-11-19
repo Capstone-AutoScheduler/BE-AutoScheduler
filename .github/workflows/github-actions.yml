@@ -157,6 +157,8 @@ jobs:
       ## deploy to develop
       - name: Docker Run with Compose
         uses: appleboy/ssh-action@master
+        env:
+          COMPOSE: "/home/ubuntu/compose/docker-compose.yml"
         with:
           host: ${{ secrets.EC2_SERVER_IP }} # EC2 퍼블릭 IPv4 DNS
           username: ${{ secrets.USERNAME }} # ubuntu
