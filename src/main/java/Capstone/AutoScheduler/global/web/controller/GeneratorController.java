@@ -18,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -59,6 +61,13 @@ public class GeneratorController {
     }
 
     // 전체 일정 생성기 리스트 조회
-
+    @GetMapping("/list")
+    @Operation(summary = "전체 일정 생성기 리스트 조회 API", description = "전체 일정 생성기 리스트를 조회합니다.")
+    public ApiResponse<GeneratorResponseDTO.GeneratorPreviewListDTO> findGenerators() {
+        List<Generator> generators = generatorQueryService.getGenerators();
+        return ApiResponse.onSuccess(
+                SuccessStatus.GENERATOR_OK,
+                GeneratorConverter.toGeneratorPreviewListDTO(generators));
+    }
 
 }

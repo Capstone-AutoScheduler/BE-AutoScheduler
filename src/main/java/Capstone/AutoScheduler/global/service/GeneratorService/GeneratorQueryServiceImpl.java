@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,5 +24,10 @@ public class GeneratorQueryServiceImpl implements GeneratorQueryService {
         public Generator findById(Long generatorId) {
             Generator generator = generatorRepository.findById(generatorId).get();
             return generatorRepository.save(generator);
+        }
+
+        @Override
+        public List<Generator> getGenerators() {
+            return generatorRepository.findAllByOrderByGeneratorIdDesc();
         }
 }
