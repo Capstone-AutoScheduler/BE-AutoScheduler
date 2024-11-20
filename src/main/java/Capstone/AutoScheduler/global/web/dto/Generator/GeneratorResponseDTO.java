@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 public class GeneratorResponseDTO {
 
     @Getter
@@ -18,4 +20,39 @@ public class GeneratorResponseDTO {
         String generatorTitle;
         String generatorDetail;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GeneratorDTO {
+        Long generatorId;
+        Long memberId;
+        Long sourceId;
+        String generatorTitle;
+        String generatorDetail;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GeneratorPreviewDTO {
+        Long generatorId;
+        Long memberId;
+        Long sourceId;
+        String generatorTitle;
+        String generatorDetail;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GeneratorPreviewListDTO {
+        List<GeneratorPreviewDTO> generators;
+    }
+
+
+
 }

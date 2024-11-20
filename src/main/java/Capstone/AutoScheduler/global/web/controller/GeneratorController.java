@@ -6,11 +6,13 @@ import Capstone.AutoScheduler.global.apiPayload.code.status.SuccessStatus;
 import Capstone.AutoScheduler.global.converter.GeneratorConverter;
 import Capstone.AutoScheduler.global.domain.entity.Generator;
 import Capstone.AutoScheduler.global.service.GeneratorService.GeneratorCommandService;
+import Capstone.AutoScheduler.global.service.GeneratorService.GeneratorQueryService;
 import Capstone.AutoScheduler.global.service.MemberService.MemberCommandService;
 import Capstone.AutoScheduler.global.web.dto.Generator.GeneratorRequestDTO;
 import Capstone.AutoScheduler.global.web.dto.Generator.GeneratorResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class GeneratorController {
 
     private final GeneratorCommandService generatorCommandService;
+    private final GeneratorQueryService generatorQueryService;
     private final MemberCommandService memberCommandService;
 
     // 일정 생성기 저장하기
@@ -42,5 +45,20 @@ public class GeneratorController {
                 GeneratorConverter.toCreateResultDTO(newGenerator)
         );
     }
+
+    // 특정 일정 생성기 조회
+    @GetMapping("/{generatorId}")
+    @Operation(summary = "특정 일정 생성기 조회 API", description = "특정 일정 생성기를 조회합니다. Path variable로 조회할 일정 생성기의 ID를 입력하세요.")
+    public ApiResponse<GeneratorResponseDTO.GeneratorDTO> findGenerator(@PathVariable Long generatorId) {
+        Object request;
+        Generator findGenerator = generatorQueryService.findById(generatorId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.GENERATOR_OK,
+                GeneratorConverter.toGeneratorDTO(findGenerator)
+        );
+    }
+
+    // 전체 일정 생성기 리스트 조회
+
 
 }

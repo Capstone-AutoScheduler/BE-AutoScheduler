@@ -23,4 +23,14 @@ public class GeneratorConverter {
                 .build();
     }
 
+    public static GeneratorResponseDTO.GeneratorDTO toGeneratorDTO(Generator generator) {
+        return GeneratorResponseDTO.GeneratorDTO.builder()
+                .generatorId(generator.getGeneratorId())
+                .memberId(generator.getMember().getMemberId())
+                .sourceId(generator.getSource().getSourceId())
+                .generatorTitle(generator.getGeneratorTitle())
+                .generatorDetail(generator.getGeneratorDetail())
+                .build();
+    }
+
 }
