@@ -27,7 +27,7 @@ public class SecurityConfig {
                                 // Event 관련 접근
                                 .requestMatchers("/event/", "/event/{eventId}", "/event/member/{memberId}", "/event/member/{memberId}/event/{eventId}", "/event/member/{memberId}/date/{date}").permitAll()
                                 // Generator 관련 접근
-                                .requestMatchers("/generator/").permitAll()
+                                .requestMatchers("/generator/", "/generator/{generatorId}").permitAll()
                                 // Bookmark 관련 접근
                                 .requestMatchers("/bookmark/add/{memberId}/{generatorId}", "/bookmark/delete/{bookmarkId}" ).permitAll()
                                 // Crawling 관련 접근
