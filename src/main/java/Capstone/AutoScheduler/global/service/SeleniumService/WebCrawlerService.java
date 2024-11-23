@@ -1,6 +1,8 @@
 package Capstone.AutoScheduler.global.service.SeleniumService;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 
 @Service
 public class WebCrawlerService {
@@ -37,6 +40,14 @@ public class WebCrawlerService {
             // 페이지 로드 대기
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
+
+            // CSS print
+            List<WebElement> links = driver.findElements(By.xpath("//link[@rel='stylesheet']"));
+            for (WebElement link : links) {
+                String cssLink = link.getAttribute("href");
+                System.out.println(cssLink);
+                // 여기서 cssLink를 사용하여 CSS 파일을 다운로드하거나 내용을 읽을 수 있습니다.
+            }
 
             // HTML 소스 반환
             return driver.getPageSource();
