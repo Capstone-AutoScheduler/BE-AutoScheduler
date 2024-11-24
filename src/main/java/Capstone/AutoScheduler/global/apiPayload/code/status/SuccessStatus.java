@@ -17,9 +17,9 @@ public enum SuccessStatus implements BaseCode {
     // 일정 생성기 관련 응답
     GENERATOR_OK(HttpStatus.OK, "GENERATOR_3000", "성공입니다."),
     // 북마크 관련 응답
-    BOOKMARK_OK(HttpStatus.OK, "BOOKMARK_4000", "성공입니다.")
-
-    ;
+    BOOKMARK_OK(HttpStatus.OK, "BOOKMARK_4000", "성공입니다."),
+    // 크롤링 관련 응답
+    CRAWLING_OK(HttpStatus.OK, "CRAWLING_5000", "성공입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

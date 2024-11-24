@@ -7,17 +7,22 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class WebCrawlerService {
 
-    public String getHtmlContent(String url) {
+    public List<String> getHtmlContent(String url) {
+        List<String> htmlContent = new ArrayList<>();
         WebDriver driver = null;
 
         try {
@@ -41,16 +46,30 @@ public class WebCrawlerService {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
 
-            // CSS print
+            // header의 CSS파일 가져오기
+            String cssFiles = "";
             List<WebElement> links = driver.findElements(By.xpath("//link[@rel='stylesheet']"));
             for (WebElement link : links) {
                 String cssLink = link.getAttribute("href");
-                System.out.println(cssLink);
-                // 여기서 cssLink를 사용하여 CSS 파일을 다운로드하거나 내용을 읽을 수 있습니다.
+                cssFiles += "<link rel=\"stylesheet\" href=\"" + cssLink + "\">";
             }
+            htmlContent.add(cssFiles);
 
-            // HTML 소스 반환
-            return driver.getPageSource();
+            // html의 body만 가져오기
+            String bodyContent = driver.findElement(By.tagName("body")).getAttribute("outerHTML");
+            htmlContent.add(bodyContent);
+
+            return htmlContent;
+
+//            // HTML 소스 가져와서 변수에 저장
+//            String htmlContent = driver.getPageSource();
+//
+//            // HTML을 MIME 타입으로 반환
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.add(HttpHeaders.CONTENT_TYPE, "text/html; charset=UTF-8");
+//
+//            // ResponseEntity와 getBody로 body return
+//            return new ResponseEntity<>(htmlContent, headers, HttpStatus.OK).getBody();
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException("유효하지 않은 URL 형식입니다: " + url);
         } catch (Exception e) {

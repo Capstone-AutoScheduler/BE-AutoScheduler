@@ -50,6 +50,10 @@ public enum ErrorStatus implements BaseErrorCode {
     BOOKMARK_NOT_FOUND(HttpStatus.BAD_REQUEST, "BOOKMARK_4005", "북마크가 없습니다."),
     BOOKMARK_DUPLICATE(HttpStatus.BAD_REQUEST, "BOOKMARK_4006", "이미 북마크가 되어있습니다."),
 
+    // 크롤링 관련 에러 5000
+    CRAWLING_NOT_EXIST(HttpStatus.BAD_REQUEST, "CRAWLING_5001", "유효하지 않은 URL 형식입니다."),
+    CRAWLING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "CRAWLING_5002", "크롤링 중 오류가 발생했습니다."),
+
     // 카테고리 관련 에러 7000
     CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CATEGORY_7001", "카테고리가 없습니다."),
     // 회원별 관심 카테고리 관련 에러 8000
