@@ -14,6 +14,10 @@ public class GeneratorConverter {
         return Generator.builder()
                 .generatorTitle(request.getGeneratorTitle())
                 .generatorDetail(request.getGeneratorDetail())
+                .frames(request.getFrames())
+                .mapping(request.getMapping())
+                .sourceType(request.getSourceType())
+                .webUrl(request.getWebUrl())
                 .build();
     }
 
@@ -21,9 +25,14 @@ public class GeneratorConverter {
         return GeneratorResponseDTO.CreateGeneratorResultDTO.builder()
                 .generatorId(generator.getGeneratorId())
                 .memberId(generator.getMember().getMemberId())
-                .sourceId(generator.getSource().getSourceId())
+                .memberName(generator.getMember().getName())
+                //.sourceId(generator.getSource().getSourceId())
+                .sourceType(generator.getSourceType())
                 .generatorTitle(generator.getGeneratorTitle())
                 .generatorDetail(generator.getGeneratorDetail())
+                .frames(generator.getFrames())
+                .mapping(generator.getMapping())
+                .webUrl(generator.getWebUrl())
                 .build();
     }
 
@@ -31,9 +40,14 @@ public class GeneratorConverter {
         return GeneratorResponseDTO.GeneratorDTO.builder()
                 .generatorId(generator.getGeneratorId())
                 .memberId(generator.getMember().getMemberId())
-                .sourceId(generator.getSource().getSourceId())
+                .memberName(generator.getMember().getName())
+                //.sourceId(generator.getSource().getSourceId())
+                .sourceType(generator.getSourceType())
                 .generatorTitle(generator.getGeneratorTitle())
                 .generatorDetail(generator.getGeneratorDetail())
+                .frames(generator.getFrames())
+                .mapping(generator.getMapping())
+                .webUrl(generator.getWebUrl())
                 .build();
     }
 
@@ -41,9 +55,14 @@ public class GeneratorConverter {
         return GeneratorResponseDTO.GeneratorPreviewDTO.builder()
                 .generatorId(generator.getGeneratorId())
                 .memberId(generator.getMember().getMemberId())
-                .sourceId(generator.getSource().getSourceId())
+                .memberName(generator.getMember().getName())
+                //.sourceId(generator.getSource().getSourceId())
+                .sourceType(generator.getSourceType())
                 .generatorTitle(generator.getGeneratorTitle())
                 .generatorDetail(generator.getGeneratorDetail())
+                .frames(generator.getFrames())
+                .mapping(generator.getMapping())
+                .webUrl(generator.getWebUrl())
                 .build();
     }
 

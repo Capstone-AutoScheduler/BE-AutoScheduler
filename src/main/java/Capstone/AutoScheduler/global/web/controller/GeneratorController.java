@@ -38,10 +38,10 @@ public class GeneratorController {
     @Operation(summary = "일정 생성기 생성하기", description = "일정 생성기를 생성합니다.")
     public ApiResponse<GeneratorResponseDTO.CreateGeneratorResultDTO> generatorCreate(
             @RequestParam Long memberId,
-            @RequestParam Long sourceId,
+            //@RequestParam Long sourceId,
             @RequestBody GeneratorRequestDTO.CreateGeneratorRequestDTO request
     ){
-        Generator newGenerator = generatorCommandService.createGenerator(memberId, sourceId, request);
+        Generator newGenerator = generatorCommandService.createGenerator(memberId, request);
         return ApiResponse.onSuccess(
                 SuccessStatus.GENERATOR_OK,
                 GeneratorConverter.toCreateResultDTO(newGenerator)
