@@ -18,6 +18,7 @@ public class EventResponseDTO {
     public static class CreateEventResultDTO {
         Long eventId;
         Long memberId;
+        Long generatorId;
         String eventTitle;
         String eventBody;
         LocalDateTime startDate;
@@ -42,6 +43,7 @@ public class EventResponseDTO {
     @AllArgsConstructor
     public static class MemberEventPreviewDTO {
         Long memberId;
+        Long generatorId;
         Long eventId;
         String eventTitle;
         String eventBody;

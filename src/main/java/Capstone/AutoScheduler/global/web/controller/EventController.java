@@ -79,28 +79,19 @@ public class EventController {
         return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewDTO(event));
     }
 
-//    @PostMapping("/event/multipleEvents/{memberId}/{generatorId}")
-//    @Operation(summary = "자동 생성된 모든 일정 저장하기", description = "일정 생성기에서 자동 생성된 개별 일정을 모두 저장합니다.")
-//    public ApiResponse<List<EventResponseDTO.CreateEventResultDTO>> createIndividualEventsFromList(
-//            @PathVariable Long memberId,
-//            @PathVariable Long generatorId,
-//            @RequestBody List<EventRequestDTO.CreateEventRequestDTO> multiEventRequests) {
-//
-//        // 저장된 이벤트 결과를 담을 리스트
-//        List<EventResponseDTO.CreateEventResultDTO> createdEvents = new ArrayList<>();
-//
-//        // 요청된 각 일정 데이터를 처리
-//        for (EventRequestDTO.CreateEventRequestDTO request : multiEventRequests) {
-//            // EventCommandService를 통해 개별 이벤트 생성
-//            Event newEvent = eventCommandService.createIndividualEventFromList(memberId, generatorId, request);
-//
-//            // 생성된 이벤트를 DTO로 변환하여 결과 리스트에 추가
-//            createdEvents.add(EventConverter.toCreateResultDTO(newEvent));
-//        }
-//
-//        // 성공 응답 반환
-//        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, createdEvents);
-//    }
+    // 자동 생성된 모든 일정 저장하기
+    @PostMapping("/multipleEvents/{memberId}/{generatorId}")
+    @Operation(summary = "자동 생성된 모든 일정 저장하기", description = "일정 생성기에서 자동 생성된 개별 일정을 모두 저장합니다.")
+    public ApiResponse<List<EventResponseDTO.CreateEventResultDTO>> createMultipleEvents(@RequestParam Long memberId, @RequestParam Long generatorId,
+                                                                                         @RequestBody EventRequestDTO.CreateMultipleEventsRequestDTO request) {
+        List<EventResponseDTO.CreateEventResultDTO> createdEvents = new ArrayList<>();
+
+        for (EventRequestDTO.CreateEventRequestDTO eventRequest : request.getEvents()) {
+            Event newEvent = eventCommandService.createEventWithGenerator(memberId, generatorId, eventRequest);
+            createdEvents.add(EventConverter.toCreateResultDTO(newEvent));
+        }
+        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, createdEvents);
+    }
 
 
 
