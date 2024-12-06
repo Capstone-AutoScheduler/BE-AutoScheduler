@@ -54,4 +54,10 @@ public class EventQueryServiceImpl implements EventQueryService {
             return null;
         }
     }
+
+    @Override
+    public List<Event> findRecentEventsByMember(Long memberId, int limit) {
+        return eventRepository.findTop10ByMember_MemberIdOrderByCreatedAtDesc(memberId);// 최신 10개 일정 조회
+    }
+
 }

@@ -25,7 +25,7 @@ public class SecurityConfig {
                                 .requestMatchers("/member/sign-up", "/member/sign-in").permitAll()
                                 .requestMatchers("/member/**").permitAll()
                                 // Event 관련 접근
-                                .requestMatchers("/event/", "/event/{eventId}", "/event/member/{memberId}", "/event/member/{memberId}/event/{eventId}", "/event/member/{memberId}/date/{date}", "/event/multipleEvents/{memberId}/{generatorId}").permitAll()
+                                .requestMatchers("/event/", "/event/{eventId}", "/event/member/{memberId}", "/event/member/{memberId}/event/{eventId}", "/event/member/{memberId}/date/{date}", "/event/multipleEvents/{memberId}/{generatorId}", "/event/member/{memberId}/recent").permitAll()
                                 // Generator 관련 접근
                                 .requestMatchers("/generator/", "/generator/{generatorId}").permitAll()
                                 // Bookmark 관련 접근
