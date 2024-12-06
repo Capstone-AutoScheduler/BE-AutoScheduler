@@ -82,7 +82,7 @@ public class EventController {
     // 자동 생성된 모든 일정 저장하기
     @PostMapping("/multipleEvents/{memberId}/{generatorId}")
     @Operation(summary = "자동 생성된 모든 일정 저장하기", description = "일정 생성기에서 자동 생성된 개별 일정을 모두 저장합니다.")
-    public ApiResponse<List<EventResponseDTO.CreateEventResultDTO>> createMultipleEvents(@RequestParam Long memberId, @RequestParam Long generatorId,
+    public ApiResponse<List<EventResponseDTO.CreateEventResultDTO>> createMultipleEvents(@PathVariable Long memberId, @PathVariable Long generatorId,
                                                                                          @RequestBody EventRequestDTO.CreateMultipleEventsRequestDTO request) {
         List<EventResponseDTO.CreateEventResultDTO> createdEvents = new ArrayList<>();
 
