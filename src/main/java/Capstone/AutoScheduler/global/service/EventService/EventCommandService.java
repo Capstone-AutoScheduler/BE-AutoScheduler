@@ -8,4 +8,5 @@ public interface EventCommandService {
     Event createEvent(Long memberId, EventRequestDTO.CreateEventRequestDTO request);
     Event updateEvent(Long memberId, Long eventId, EventRequestDTO.UpdateEventDTO request);
     void deleteEvent(Long memberId, Long eventId);
+    Event createEventWithGenerator(Long memberId, Long generatorId, EventRequestDTO.CreateEventRequestDTO request);
 }

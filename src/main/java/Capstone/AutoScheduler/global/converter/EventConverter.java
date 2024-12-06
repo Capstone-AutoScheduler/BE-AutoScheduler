@@ -23,12 +23,14 @@ public class EventConverter {
         return EventResponseDTO.CreateEventResultDTO.builder()
                 .eventId(event.getEventId())
                 .memberId(event.getMember().getMemberId())
+                .generatorId(event.getGenerator() != null ? event.getGenerator().getGeneratorId() : null) // generatorId 추가
                 .eventTitle(event.getEventTitle())
                 .eventBody(event.getEventBody())
                 .startDate(event.getStartDate())
                 .endDate(event.getEndDate())
                 .build();
     }
+
 
     public static EventResponseDTO.UpdateEventResultDTO UpdateEventResultDTO(Event event) {
         return EventResponseDTO.UpdateEventResultDTO.builder()
@@ -43,6 +45,7 @@ public class EventConverter {
     public static EventResponseDTO.MemberEventPreviewDTO toMemberEventPreviewDTO(Event event) {
         return EventResponseDTO.MemberEventPreviewDTO.builder()
                 .memberId(event.getMember().getMemberId())
+                .generatorId(event.getGenerator() != null ? event.getGenerator().getGeneratorId() : null) // generatorId 추가
                 .eventId(event.getEventId())
                 .eventTitle(event.getEventTitle())
                 .eventBody(event.getEventBody())
