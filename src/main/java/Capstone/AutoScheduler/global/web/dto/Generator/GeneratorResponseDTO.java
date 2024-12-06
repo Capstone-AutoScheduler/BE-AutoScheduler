@@ -1,11 +1,13 @@
 package Capstone.AutoScheduler.global.web.dto.Generator;
 
+import Capstone.AutoScheduler.global.domain.enums.TypeSource;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 public class GeneratorResponseDTO {
 
@@ -16,9 +18,17 @@ public class GeneratorResponseDTO {
     public static class CreateGeneratorResultDTO {
         Long generatorId;
         Long memberId;
-        Long sourceId;
+        String memberName;
+        //Long sourceId;
+        TypeSource sourceType;
         String generatorTitle;
         String generatorDetail;
+        //String frames;
+        //String mapping;
+        // JSON 데이터를 List<Map<String, Object>>로 처리
+        List<Map<String, Object>> frames;
+        List<Map<String, Object>> mapping;
+        String webUrl;
     }
 
     @Getter
@@ -28,9 +38,17 @@ public class GeneratorResponseDTO {
     public static class GeneratorDTO {
         Long generatorId;
         Long memberId;
-        Long sourceId;
+        String memberName;
+        //Long sourceId;
+        TypeSource sourceType;
         String generatorTitle;
         String generatorDetail;
+        //String frames;
+        //String mapping;
+        // JSON 데이터를 List<Map<String, Object>>로 처리
+        List<Map<String, Object>> frames;
+        List<Map<String, Object>> mapping;
+        String webUrl;
     }
 
     @Getter
@@ -40,9 +58,16 @@ public class GeneratorResponseDTO {
     public static class GeneratorPreviewDTO {
         Long generatorId;
         Long memberId;
-        Long sourceId;
+        String memberName;
+        TypeSource sourceType;
         String generatorTitle;
         String generatorDetail;
+        //String frames;
+        //String mapping;
+        // JSON 데이터를 List<Map<String, Object>>로 처리
+        List<Map<String, Object>> frames;
+        List<Map<String, Object>> mapping;
+        String webUrl;
     }
 
     @Builder

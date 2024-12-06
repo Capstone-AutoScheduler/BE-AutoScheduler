@@ -5,7 +5,7 @@ import Capstone.AutoScheduler.global.web.dto.Generator.GeneratorRequestDTO;
 
 public interface GeneratorCommandService {
     // 일정 생성기 저장
-    Generator createGenerator(Long memberId, Long sourceId, GeneratorRequestDTO.CreateGeneratorRequestDTO request);
+    Generator createGenerator(Long memberId, GeneratorRequestDTO.CreateGeneratorRequestDTO request);
 
 
 

@@ -25,13 +25,13 @@ public class GeneratorCommandServiceImpl implements GeneratorCommandService {
     private final BookmarkCommandService bookmarkCommandService;
 
     @Override
-    public Generator createGenerator(Long memberId, Long sourceId, GeneratorRequestDTO.CreateGeneratorRequestDTO request) {
+    public Generator createGenerator(Long memberId, GeneratorRequestDTO.CreateGeneratorRequestDTO request) {
         Generator newGenerator = GeneratorConverter.toGenerator(request);
         Member getMember = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
         newGenerator.setMember(getMember);
 
-        Source getSource = sourceRepository.findById(sourceId).orElseThrow(() -> new IllegalArgumentException("해당 소스가 존재하지 않습니다."));
-        newGenerator.setSource(getSource);
+//        Source getSource = sourceRepository.findById(sourceId).orElseThrow(() -> new IllegalArgumentException("해당 소스가 존재하지 않습니다."));
+//        newGenerator.setSource(getSource);
 
         Generator savedGenerator = generateRepository.save(newGenerator);
 
