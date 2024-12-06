@@ -11,5 +11,5 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findAllByMember(Member member);
-
+    List<Event> findTop10ByMember_MemberIdOrderByCreatedAtDesc(Long memberId);
 }

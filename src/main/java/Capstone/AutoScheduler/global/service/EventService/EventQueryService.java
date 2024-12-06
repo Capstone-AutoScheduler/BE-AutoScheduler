@@ -9,4 +9,5 @@ public interface EventQueryService {
     List<Event> getMemberEvent(Long memberId);
     List<Event> getMemberEventByDate(Long memberId, String date);
     Event getEvent(Long memberId, Long eventId);
+    List<Event> findRecentEventsByMember(Long memberId, int limit);
 }

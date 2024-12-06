@@ -93,6 +93,14 @@ public class EventController {
         return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, createdEvents);
     }
 
+    // 사용자의 최근 생성된 일정 전체 리스트 조회하기
+    @GetMapping("/member/{memberId}/recent")
+    @Operation(summary = "사용자의 최근 생성된 일정 리스트 조회 API", description = "사용자의 최근 생성된 10개의 일정 리스트를 조회합니다.")
+    public ApiResponse<EventResponseDTO.MemberEventPreviewListDTO> findRecentEventsByMember(@PathVariable Long memberId) {
+        List<Event> recentEvents = eventQueryService.findRecentEventsByMember(memberId, 10); // 10개의 일정 조회
+        return ApiResponse.onSuccess(SuccessStatus.EVENT_OK, EventConverter.toMemberEventPreviewListDTO(recentEvents));
+    }
+
 
 
 }
