@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class CrawlerController {
     @Autowired
     private WebCrawlerService webCrawlerService;
 
+    @CrossOrigin(origins = "http://localhost:3000")  // 프론트엔드 서버만 허용
     @Operation(
             summary = "웹 크롤링 API",
             description = "URL을 입력하면 해당 페이지의 HTML 소스를 반환합니다."
@@ -33,11 +35,12 @@ public class CrawlerController {
     @GetMapping("/crawl")
     public ApiResponse<CrawlingResponseDTO.GetCrawlingResultDTO> crawl(
             @Parameter(description = "크롤링할 URL", required = true)
+            @RequestParam int type,
             @RequestParam String url
     ) {
         try {
             // HTML 크롤링 결과 가져오기
-            List<String> htmlContent = webCrawlerService.getHtmlContent(url);
+            List<String> htmlContent = webCrawlerService.getHtmlContent(type, url);
 
             return ApiResponse.onSuccess(SuccessStatus.CRAWLING_OK, CrawlingConverter.toGetCrawlingResultDTO(htmlContent));
         } catch (IllegalArgumentException e) {
