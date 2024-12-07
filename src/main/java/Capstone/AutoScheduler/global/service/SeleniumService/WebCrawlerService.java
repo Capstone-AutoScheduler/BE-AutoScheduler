@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class WebCrawlerService {
 
-    public List<String> getHtmlContent(String url) {
+    public List<String> getHtmlContent(int type, String url) {
         List<String> htmlContent = new ArrayList<>();
         WebDriver driver = null;
 
@@ -46,18 +46,25 @@ public class WebCrawlerService {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
 
-            // header의 CSS파일 가져오기
-            String cssFiles = "";
-            List<WebElement> links = driver.findElements(By.xpath("//link[@rel='stylesheet']"));
-            for (WebElement link : links) {
-                String cssLink = link.getAttribute("href");
-                cssFiles += "<link rel=\"stylesheet\" href=\"" + cssLink + "\">";
-            }
-            htmlContent.add(cssFiles);
+            if(type == 0) {
+                // header의 CSS파일 가져오기
+                String cssFiles = "";
+                List<WebElement> links = driver.findElements(By.xpath("//link[@rel='stylesheet']"));
+                for (WebElement link : links) {
+                    String cssLink = link.getAttribute("href");
+                    cssFiles += "<link rel=\"stylesheet\" href=\"" + cssLink + "\">";
+                }
+                htmlContent.add(cssFiles);
 
-            // html의 body만 가져오기
-            String bodyContent = driver.findElement(By.tagName("body")).getAttribute("outerHTML");
-            htmlContent.add(bodyContent);
+                // html의 body만 가져오기
+                String bodyContent = driver.findElement(By.tagName("body")).getAttribute("outerHTML");
+                htmlContent.add(bodyContent);
+            }
+            else {
+                String pageSource = driver.getPageSource();
+                htmlContent.add(null);
+                htmlContent.add(pageSource);
+            }
 
             return htmlContent;
 
