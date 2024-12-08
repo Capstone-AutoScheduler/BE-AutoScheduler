@@ -36,7 +36,7 @@ public class SecurityConfig {
                                 // Bookmark 관련 접근
                                 .requestMatchers("/bookmark/add/{memberId}/{generatorId}", "/bookmark/delete/{bookmarkId}" ).permitAll()
                                 // Crawling 관련 접근
-                                .requestMatchers("/crawl").permitAll() // /crawl 경로 접근 허용
+                                .requestMatchers("/crawl", "/crawl-with-login").permitAll() // /crawl 경로 접근 허용
                                 // 기타 관련 접근
                                 .requestMatchers("/", "/api-docs/**", "/api-docs/swagger-config/*", "/swagger-ui/*", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
@@ -61,3 +61,4 @@ public class SecurityConfig {
     }
 
 }
+
