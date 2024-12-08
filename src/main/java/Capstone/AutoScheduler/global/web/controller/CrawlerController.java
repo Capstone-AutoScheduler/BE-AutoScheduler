@@ -37,10 +37,12 @@ public class CrawlerController {
             @Parameter(description = "크롤링할 URL", required = true)
             @RequestParam int type,
             @RequestParam String url
+            //@RequestParam String username,
+            //@RequestParam String password
     ) {
         try {
             // HTML 크롤링 결과 가져오기
-            List<String> htmlContent = webCrawlerService.getHtmlContent(type, url);
+            List<String> htmlContent = webCrawlerService.getHtmlContent(type, url); //, username, password);
 
             return ApiResponse.onSuccess(SuccessStatus.CRAWLING_OK, CrawlingConverter.toGetCrawlingResultDTO(htmlContent));
         } catch (IllegalArgumentException e) {

@@ -1,6 +1,8 @@
 package Capstone.AutoScheduler.global.service.SeleniumService;
 
+import java.net.URLDecoder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,14 +16,16 @@ import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class WebCrawlerService {
 
-    public List<String> getHtmlContent(int type, String url) {
+    public List<String> getHtmlContent(int type, String url){ //}, String username, String password) {
         List<String> htmlContent = new ArrayList<>();
         WebDriver driver = null;
 
@@ -30,7 +34,7 @@ public class WebCrawlerService {
 
             // ChromeDriver 설정
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless"); // GUI 없이 실행
+            //options.addArguments("--headless"); // GUI 없이 실행
             options.addArguments("--no-sandbox"); // 보안 설정
             options.addArguments("--disable-dev-shm-usage"); // 메모리 문제 방지
             options.addArguments("--disable-gpu"); //추가한 옵션
@@ -45,6 +49,34 @@ public class WebCrawlerService {
             // 페이지 로드 대기
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
+            //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("txtUserID")));
+
+//            // 로그인 시도
+//            WebElement usernameField = driver.findElement(By.id("txtUserID"));
+//            WebElement passwordField = driver.findElement(By.id("txtPwd"));
+//            WebElement loginButton = driver.findElement(By.xpath("//a[@onclick='OnLogon();']"));
+//
+//            usernameField.sendKeys(username);
+//            passwordField.sendKeys(password);
+//            loginButton.click();
+
+//            // URL 로드
+//            driver.get(url);
+//
+//            // 로그인 필드 대기 및 입력
+//            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//            wait.until(ExpectedConditions.presenceOfElementLocated(By.id("txtUserID")));
+//
+//            WebElement usernameField = driver.findElement(By.id("txtUserID"));
+//            WebElement passwordField = driver.findElement(By.id("txtPwd"));
+//            WebElement loginButton = driver.findElement(By.xpath("//a[@onclick='OnLogon();']"));
+//
+//            usernameField.sendKeys(username);
+//            passwordField.sendKeys(password);
+//            loginButton.click();
+//
+//            // 로그인 후 페이지 로드 대기
+//            wait.until(ExpectedConditions.presenceOfElementLocated(By.id("targetElementIdAfterLogin"))); // 성공 후 나타나는 ID
 
             if(type == 0) {
                 // header의 CSS파일 가져오기
@@ -68,33 +100,40 @@ public class WebCrawlerService {
 
             return htmlContent;
 
-//            // HTML 소스 가져와서 변수에 저장
-//            String htmlContent = driver.getPageSource();
-//
-//            // HTML을 MIME 타입으로 반환
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.add(HttpHeaders.CONTENT_TYPE, "text/html; charset=UTF-8");
-//
-//            // ResponseEntity와 getBody로 body return
-//            return new ResponseEntity<>(htmlContent, headers, HttpStatus.OK).getBody();
         } catch (MalformedURLException e) {
-            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다: " + url);
+            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다: " + url, e);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("요소를 찾을 수 없습니다. 로그인 필드 ID를 확인하세요.", e);
+        } catch (TimeoutException e) {
+            throw new RuntimeException("페이지 로딩 시간이 초과되었습니다.", e);
         } catch (Exception e) {
-            throw new RuntimeException("크롤링 중 오류가 발생했습니다: " + e.getMessage());
+            throw new RuntimeException("크롤링 중 오류가 발생했습니다.", e);
         } finally {
             if (driver != null) {
-                driver.quit(); // WebDriver 종료
+                //driver.quit(); // WebDriver 종료
             }
         }
     }
 
-    private void validateUrl(String url) throws MalformedURLException {
-        URL parsedUrl = new URL(url);
 
-        if (!"https".equalsIgnoreCase(parsedUrl.getProtocol())) {
-            throw new IllegalArgumentException("HTTPS 프로토콜만 지원합니다.");
+
+    private void validateUrl(String url) throws MalformedURLException {
+        try {
+            // URL 디코딩
+            String decodedUrl = URLDecoder.decode(url, "UTF-8");
+            System.out.println("Decoded URL: " + decodedUrl);
+
+            // URL 파싱 및 검증
+            URL parsedUrl = new URL(decodedUrl);
+            if (!"https".equalsIgnoreCase(parsedUrl.getProtocol())) {
+                throw new IllegalArgumentException("HTTPS 프로토콜만 지원합니다.");
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("URL 형식이 잘못되었습니다: " + url, e);
         }
     }
+
+
 }
 
 
