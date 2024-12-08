@@ -22,73 +22,71 @@ import java.util.List;
 //@Service
 //public class WebCrawlerService {
 //
-//    public List<String> getHtmlContent(int type, String url) {
-//        List<String> htmlContent = new ArrayList<>();
-//        WebDriver driver = null;
-//
-//        try {
-//            validateUrl(url);
-//
-//            // ChromeDriver 설정
-//            ChromeOptions options = new ChromeOptions();
-//            //options.addArguments("--headless"); // GUI 없이 실행
-//            options.addArguments("--no-sandbox"); // 보안 설정
-//            options.addArguments("--disable-dev-shm-usage"); // 메모리 문제 방지
-//            options.addArguments("--disable-gpu"); //추가한 옵션
-//            options.addArguments("--ignore-ssl-errors=yes");
-//            options.addArguments("--ignore-certificate-errors");
-//
-//            driver = new ChromeDriver(options);
-//
-//            // URL 로드
-//            driver.get(url);
-//
-//            // 페이지 로드 대기
-//            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//            wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
-//
-//            if(type == 0) {
-//                // header의 CSS파일 가져오기
-//                String cssFiles = "";
-//                List<WebElement> links = driver.findElements(By.xpath("//link[@rel='stylesheet']"));
-//                for (WebElement link : links) {
-//                    String cssLink = link.getAttribute("href");
-//                    cssFiles += "<link rel=\"stylesheet\" href=\"" + cssLink + "\">";
-//                }
-//                htmlContent.add(cssFiles);
-//
-//                // html의 body만 가져오기
-//                String bodyContent = driver.findElement(By.tagName("body")).getAttribute("outerHTML");
-//                htmlContent.add(bodyContent);
-//            }
-//            else {
-//                String pageSource = driver.getPageSource();
-//                htmlContent.add(null);
-//                htmlContent.add(pageSource);
-//            }
-//
-//            return htmlContent;
-//
-////            // HTML 소스 가져와서 변수에 저장
-////            String htmlContent = driver.getPageSource();
-////
-////            // HTML을 MIME 타입으로 반환
-////            HttpHeaders headers = new HttpHeaders();
-////            headers.add(HttpHeaders.CONTENT_TYPE, "text/html; charset=UTF-8");
-////
-////            // ResponseEntity와 getBody로 body return
-////            return new ResponseEntity<>(htmlContent, headers, HttpStatus.OK).getBody();
-//        } catch (MalformedURLException e) {
-//            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다: " + url);
-//        } catch (Exception e) {
-//            throw new RuntimeException("크롤링 중 오류가 발생했습니다: " + e.getMessage());
-//        } finally {
-//            if (driver != null) {
-//                //driver.quit(); // WebDriver 종료
-//            }
-//        }
-//    }
-//
+
+//}
+
+@Service
+public class WebCrawlerService {
+
+    // 크롤링 기본 기능
+    public List<String> getHtmlContent(int type, String url) {
+        List<String> htmlContent = new ArrayList<>();
+        WebDriver driver = null;
+
+        try {
+            validateUrl(url);
+
+            // ChromeDriver 설정
+            ChromeOptions options = new ChromeOptions();
+            //options.addArguments("--headless"); // GUI 없이 실행
+            options.addArguments("--no-sandbox"); // 보안 설정
+            options.addArguments("--disable-dev-shm-usage"); // 메모리 문제 방지
+            options.addArguments("--disable-gpu"); //추가한 옵션
+            options.addArguments("--ignore-ssl-errors=yes");
+            options.addArguments("--ignore-certificate-errors");
+
+            driver = new ChromeDriver(options);
+
+            // URL 로드
+            driver.get(url);
+
+            // 페이지 로드 대기
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
+
+            if(type == 0) {
+                // header의 CSS파일 가져오기
+                String cssFiles = "";
+                List<WebElement> links = driver.findElements(By.xpath("//link[@rel='stylesheet']"));
+                for (WebElement link : links) {
+                    String cssLink = link.getAttribute("href");
+                    cssFiles += "<link rel=\"stylesheet\" href=\"" + cssLink + "\">";
+                }
+                htmlContent.add(cssFiles);
+
+                // html의 body만 가져오기
+                String bodyContent = driver.findElement(By.tagName("body")).getAttribute("outerHTML");
+                htmlContent.add(bodyContent);
+            }
+            else {
+                String pageSource = driver.getPageSource();
+                htmlContent.add(null);
+                htmlContent.add(pageSource);
+            }
+
+            return htmlContent;
+
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다: " + url);
+        } catch (Exception e) {
+            throw new RuntimeException("크롤링 중 오류가 발생했습니다: " + e.getMessage());
+        } finally {
+            if (driver != null) {
+                //driver.quit(); // WebDriver 종료
+            }
+        }
+    }
+
 //    private void validateUrl(String url) throws MalformedURLException {
 //        URL parsedUrl = new URL(url);
 //
@@ -96,11 +94,9 @@ import java.util.List;
 //            throw new IllegalArgumentException("HTTPS 프로토콜만 지원합니다.");
 //        }
 //    }
-//}
 
-@Service
-public class WebCrawlerService {
 
+    // 로그인 후 크롤링 (targetUrl https://eclass.cau.ac.kr로 지정)
     public List<String> getHtmlContentWithLogin(int type, String loginUrl, String username, String password, String targetUrl) {
         List<String> htmlContent = new ArrayList<>();
         WebDriver driver = null;
