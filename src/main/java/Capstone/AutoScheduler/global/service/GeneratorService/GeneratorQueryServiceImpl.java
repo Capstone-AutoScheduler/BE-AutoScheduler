@@ -18,15 +18,21 @@ import java.util.List;
 @Getter
 public class GeneratorQueryServiceImpl implements GeneratorQueryService {
 
-        private final GeneratorRepository generatorRepository;
+    private final GeneratorRepository generatorRepository;
 
-        @Override
-        public Generator findById(Long generatorId) {
-            Generator generator = generatorRepository.findById(generatorId).get();
-            return generatorRepository.save(generator);
-        }
+//        @Override
+//        public Generator findById(Long generatorId) {
+//            Generator generator = generatorRepository.findById(generatorId).get();
+//            return generatorRepository.save(generator);
+//        }
 
-        @Override
+    @Override
+    public Generator findById(Long generatorId) {
+        return generatorRepository.findById(generatorId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Generator가 존재하지 않습니다. ID: " + generatorId));
+    }
+
+    @Override
         public List<Generator> getGenerators() {
             return generatorRepository.findAllByOrderByGeneratorIdDesc();
         }
