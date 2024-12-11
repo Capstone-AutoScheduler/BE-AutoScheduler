@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -26,6 +28,12 @@ public class EventCommandServiceImpl implements EventCommandService {
     @Override
     public Event createEvent(Long memberId, EventRequestDTO.CreateEventRequestDTO request) {
         Member member = findMemberById(memberId);
+
+        // 겹치는 일정 확인
+        List<Event> overlappingEvents = eventRepository.findOverlappingEvents(memberId, request.getStartDate(), request.getEndDate());
+        if (!overlappingEvents.isEmpty()) {
+            throw new IllegalArgumentException("이미 해당 시간에 다른 일정이 존재합니다.");
+        }
 
         Event newEvent = EventConverter.toEvent(request);
         newEvent.setMember(member);
