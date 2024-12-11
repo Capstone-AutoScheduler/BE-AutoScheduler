@@ -75,4 +75,34 @@ public class GeneratorConverter {
                 .build();
     }
 
+
+    public static GeneratorResponseDTO.GeneratorPreviewDTO toGeneratorPreviewDTOWithBookmark(Generator generator, boolean isBookmarked) {
+        return GeneratorResponseDTO.GeneratorPreviewDTO.builder()
+                .generatorId(generator.getGeneratorId())
+                .memberId(generator.getMember().getMemberId())
+                .memberName(generator.getMember().getName())
+                .sourceType(generator.getSourceType())
+                .generatorTitle(generator.getGeneratorTitle())
+                .generatorDetail(generator.getGeneratorDetail())
+                .frames(generator.getFrames())
+                .mapping(generator.getMapping())
+                .webUrl(generator.getWebUrl())
+                .isBookmarked(isBookmarked) // 북마크 상태 추가
+                .build();
+    }
+
+    public static GeneratorResponseDTO.GeneratorPreviewListDTO toGeneratorPreviewListDTOWithBookmark(
+            List<Generator> generatorList, List<Long> bookmarkedGeneratorIds) {
+        List<GeneratorResponseDTO.GeneratorPreviewDTO> generatorPreviewDTOList = generatorList.stream()
+                .map(generator -> toGeneratorPreviewDTOWithBookmark(
+                        generator, bookmarkedGeneratorIds.contains(generator.getGeneratorId())))
+                .collect(Collectors.toList());
+        return GeneratorResponseDTO.GeneratorPreviewListDTO.builder()
+                .generators(generatorPreviewDTOList)
+                .build();
+    }
+
+
+
+
 }

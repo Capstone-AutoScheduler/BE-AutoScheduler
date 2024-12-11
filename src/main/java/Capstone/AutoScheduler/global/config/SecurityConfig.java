@@ -32,7 +32,7 @@ public class SecurityConfig {
                                 // Event 관련 접근
                                 .requestMatchers("/event/", "/event/{eventId}", "/event/member/{memberId}", "/event/member/{memberId}/event/{eventId}", "/event/member/{memberId}/date/{date}", "/event/multipleEvents/{memberId}/{generatorId}", "/event/member/{memberId}/recent").permitAll()
                                 // Generator 관련 접근
-                                .requestMatchers("/generator/", "/generator/{generatorId}").permitAll()
+                                .requestMatchers("/generator/", "/generator/{generatorId}", "/generator/list/{memberId}").permitAll()
                                 // Bookmark 관련 접근
                                 .requestMatchers("/bookmark/add/{memberId}/{generatorId}", "/bookmark/delete/{bookmarkId}" ).permitAll()
                                 // Crawling 관련 접근

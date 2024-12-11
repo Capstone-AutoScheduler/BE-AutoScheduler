@@ -5,6 +5,7 @@ import Capstone.AutoScheduler.global.apiPayload.ApiResponse;
 import Capstone.AutoScheduler.global.apiPayload.code.status.SuccessStatus;
 import Capstone.AutoScheduler.global.converter.GeneratorConverter;
 import Capstone.AutoScheduler.global.domain.entity.Generator;
+import Capstone.AutoScheduler.global.repository.BookmarkRepository;
 import Capstone.AutoScheduler.global.service.GeneratorService.GeneratorCommandService;
 import Capstone.AutoScheduler.global.service.GeneratorService.GeneratorQueryService;
 import Capstone.AutoScheduler.global.service.MemberService.MemberCommandService;
@@ -32,6 +33,7 @@ public class GeneratorController {
     private final GeneratorCommandService generatorCommandService;
     private final GeneratorQueryService generatorQueryService;
     private final MemberCommandService memberCommandService;
+    private final BookmarkRepository bookmarkRepository;
 
     // 일정 생성기 저장하기
     @PostMapping("/")
@@ -70,14 +72,16 @@ public class GeneratorController {
                 GeneratorConverter.toGeneratorPreviewListDTO(generators));
     }
 
-//    // 전체 일정 생성기 리스트 조회 (사용자의 북마크 상태 포함)
-//    @GetMapping("/list/{memberId}")
-//    @Operation(summary = "전체 일정 생성기 리스트 조회 (사용자의 북마크 상태 포함) API", description = "전체 일정 생성기 리스트를 조회하며 사용자가 북마크한 생성기를 표시합니다.")
-//    public ApiResponse<GeneratorResponseDTO.GeneratorPreviewListDTO> findGeneratorsWithBookmark(@PathVariable Long memberId) {
-//        List<Generator> generators = generatorQueryService.getGeneratorsWithBookmarkStatus(memberId);
-//        return ApiResponse.onSuccess(
-//                SuccessStatus.GENERATOR_OK,
-//                GeneratorConverter.toGeneratorPreviewListDTO(generators));
-//    }
+    // 전체 일정 생성기 리스트 조회 (사용자의 북마크 상태 포함)
+    @GetMapping("/list/{memberId}")
+    @Operation(summary = "전체 일정 생성기 리스트 조회 (사용자의 북마크 상태 포함) API", description = "전체 일정 생성기 리스트를 조회하며 사용자가 북마크한 생성기를 표시합니다.")
+    public ApiResponse<GeneratorResponseDTO.GeneratorPreviewListDTO> findGeneratorsWithBookmark(@PathVariable Long memberId) {
+        List<Generator> generators = generatorQueryService.getGeneratorsWithBookmarkStatus(memberId);
+        List<Long> bookmarkedGeneratorIds = bookmarkRepository.findBookmarkedGeneratorIdsByMemberId(memberId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.GENERATOR_OK,
+                GeneratorConverter.toGeneratorPreviewListDTOWithBookmark(generators, bookmarkedGeneratorIds));
+    }
+
 
 }
