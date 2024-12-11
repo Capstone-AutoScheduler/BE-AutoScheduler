@@ -106,6 +106,7 @@ public class WebCrawlerService {
 
             // ChromeDriver 설정
             ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-gpu");
