@@ -38,10 +38,16 @@ public class MemberConverter {
     public static MemberResponseDTO.BookmarkPreviewDTO toBookmarkPreviewDTO(Bookmark bookmark) {
         return MemberResponseDTO.BookmarkPreviewDTO.builder()
                 .memberId(bookmark.getMember().getMemberId())
+                .memberName(bookmark.getMember().getName())
                 .bookmarkId(bookmark.getId())
                 .generatorId(bookmark.getGenerator().getGeneratorId())
                 .generatorTitle(bookmark.getGenerator().getGeneratorTitle())
                 .generatorDetail(bookmark.getGenerator().getGeneratorDetail())
+                .sourceType(bookmark.getGenerator().getSourceType())
+                .frames(bookmark.getGenerator().getFrames())
+                .mapping(bookmark.getGenerator().getMapping())
+                .webUrl(bookmark.getGenerator().getWebUrl())
+                .isBookmarked(true)
                 .createdAt(bookmark.getCreatedAt())
                 .build();
     }

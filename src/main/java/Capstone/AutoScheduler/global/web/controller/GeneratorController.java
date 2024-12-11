@@ -35,7 +35,7 @@ public class GeneratorController {
 
     // 일정 생성기 저장하기
     @PostMapping("/")
-    @Operation(summary = "일정 생성기 생성하기", description = "일정 생성기를 생성합니다.")
+        @Operation(summary = "일정 생성기 생성하기", description = "일정 생성기를 생성합니다.")
     public ApiResponse<GeneratorResponseDTO.CreateGeneratorResultDTO> generatorCreate(
             @RequestParam Long memberId,
             //@RequestParam Long sourceId,
@@ -69,5 +69,15 @@ public class GeneratorController {
                 SuccessStatus.GENERATOR_OK,
                 GeneratorConverter.toGeneratorPreviewListDTO(generators));
     }
+
+//    // 전체 일정 생성기 리스트 조회 (사용자의 북마크 상태 포함)
+//    @GetMapping("/list/{memberId}")
+//    @Operation(summary = "전체 일정 생성기 리스트 조회 (사용자의 북마크 상태 포함) API", description = "전체 일정 생성기 리스트를 조회하며 사용자가 북마크한 생성기를 표시합니다.")
+//    public ApiResponse<GeneratorResponseDTO.GeneratorPreviewListDTO> findGeneratorsWithBookmark(@PathVariable Long memberId) {
+//        List<Generator> generators = generatorQueryService.getGeneratorsWithBookmarkStatus(memberId);
+//        return ApiResponse.onSuccess(
+//                SuccessStatus.GENERATOR_OK,
+//                GeneratorConverter.toGeneratorPreviewListDTO(generators));
+//    }
 
 }

@@ -68,6 +68,7 @@ public class GeneratorResponseDTO {
         List<Map<String, Object>> frames;
         List<Map<String, Object>> mapping;
         String webUrl;
+        boolean isBookmarked;
     }
 
     @Builder

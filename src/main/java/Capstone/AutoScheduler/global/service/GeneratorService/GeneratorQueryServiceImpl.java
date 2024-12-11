@@ -3,6 +3,7 @@ package Capstone.AutoScheduler.global.service.GeneratorService;
 
 import Capstone.AutoScheduler.global.domain.entity.Generator;
 import Capstone.AutoScheduler.global.repository.GeneratorRepository;
+import Capstone.AutoScheduler.global.web.dto.Generator.GeneratorResponseDTO;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -36,4 +37,10 @@ public class GeneratorQueryServiceImpl implements GeneratorQueryService {
         public List<Generator> getGenerators() {
             return generatorRepository.findAllByOrderByGeneratorIdDesc();
         }
+
+
+//    @Override
+//    public List<GeneratorResponseDTO.GeneratorPreviewDTO> getGeneratorsWithBookmarkStatus(Long memberId) {
+//        return generatorRepository.findAllWithBookmarkStatus(memberId);
+//    }
 }

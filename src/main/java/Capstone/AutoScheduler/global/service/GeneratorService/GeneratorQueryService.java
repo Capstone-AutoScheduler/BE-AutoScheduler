@@ -8,4 +8,5 @@ public interface GeneratorQueryService {
 
     Generator findById(Long generatorId);
     List<Generator> getGenerators();
+    //List<Generator> getGeneratorsWithBookmarkStatus(Long memberId);
 }
