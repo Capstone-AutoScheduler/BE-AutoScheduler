@@ -1,9 +1,11 @@
 package Capstone.AutoScheduler.global.web.dto.Member;
 
+import Capstone.AutoScheduler.global.domain.enums.TypeSource;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public class MemberResponseDTO {
 
@@ -35,10 +37,16 @@ public class MemberResponseDTO {
     @AllArgsConstructor
     public static class BookmarkPreviewDTO {
         private Long memberId;
+        private String memberName;
         private Long bookmarkId;
         private Long generatorId;
         private String generatorTitle;
         private String generatorDetail;
+        private TypeSource sourceType;
+        private List<Map<String, Object>> frames;
+        private List<Map<String, Object>> mapping;
+        private String webUrl;
+        private boolean isBookmarked;
         private LocalDateTime createdAt;
     }
 
