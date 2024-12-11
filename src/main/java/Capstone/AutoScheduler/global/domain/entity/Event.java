@@ -34,6 +34,9 @@ public class Event extends BaseEntity {
     @Column(name = "event_body", nullable = false, columnDefinition = "varchar(256)")
     private String eventBody;
 
+    @Column(name = "event_color", nullable = false, columnDefinition = "varchar(256)")
+    private String eventColor;
+
     @Column(name = "start_date", nullable = false, columnDefinition = "timestamp")
     private LocalDateTime startDate;
 
