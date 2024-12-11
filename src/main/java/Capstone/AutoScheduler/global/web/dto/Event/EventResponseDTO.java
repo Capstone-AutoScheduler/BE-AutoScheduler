@@ -21,6 +21,7 @@ public class EventResponseDTO {
         Long generatorId;
         String eventTitle;
         String eventBody;
+        String eventColor;
         LocalDateTime startDate;
         LocalDateTime endDate;
     }
@@ -33,6 +34,7 @@ public class EventResponseDTO {
         Long eventId;
         String eventTitle;
         String eventBody;
+        String eventColor;
         LocalDateTime startDate;
         LocalDateTime endDate;
     }
@@ -47,6 +49,7 @@ public class EventResponseDTO {
         Long eventId;
         String eventTitle;
         String eventBody;
+        String eventColor;
         LocalDateTime startDate;
         LocalDateTime endDate;
     }
@@ -57,11 +60,6 @@ public class EventResponseDTO {
     @AllArgsConstructor
     public static class MemberEventPreviewListDTO {
         List<MemberEventPreviewDTO> events;
-//        Integer listSize;
-//        Integer totalPage;
-//        Long totalElements;
-//        boolean isFirst;
-//        boolean isLast;
     }
 
 

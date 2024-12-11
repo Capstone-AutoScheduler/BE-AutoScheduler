@@ -16,6 +16,7 @@ public class EventRequestDTO {
     public static class CreateEventRequestDTO {
         private String eventTitle;
         private String eventBody;
+        private String eventColor;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
     }
@@ -27,6 +28,7 @@ public class EventRequestDTO {
     public static class UpdateEventDTO {
         private String eventTitle;
         private String eventBody;
+        private String eventColor;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
     }

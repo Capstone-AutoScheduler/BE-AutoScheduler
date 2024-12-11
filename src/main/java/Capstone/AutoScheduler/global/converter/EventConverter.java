@@ -14,6 +14,7 @@ public class EventConverter {
         return Event.builder()
                 .eventTitle(request.getEventTitle())
                 .eventBody(request.getEventBody())
+                .eventColor(request.getEventColor())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .build();
@@ -26,6 +27,7 @@ public class EventConverter {
                 .generatorId(event.getGenerator() != null ? event.getGenerator().getGeneratorId() : null) // generatorId 추가
                 .eventTitle(event.getEventTitle())
                 .eventBody(event.getEventBody())
+                .eventColor(event.getEventColor())
                 .startDate(event.getStartDate())
                 .endDate(event.getEndDate())
                 .build();
@@ -37,6 +39,7 @@ public class EventConverter {
                 .eventId(event.getEventId())
                 .eventTitle(event.getEventTitle())
                 .eventBody(event.getEventBody())
+                .eventColor(event.getEventColor())
                 .startDate(event.getStartDate())
                 .endDate(event.getEndDate())
                 .build();
@@ -49,6 +52,7 @@ public class EventConverter {
                 .eventId(event.getEventId())
                 .eventTitle(event.getEventTitle())
                 .eventBody(event.getEventBody())
+                .eventColor(event.getEventColor())
                 .startDate(event.getStartDate())
                 .endDate(event.getEndDate())
                 .build();
