@@ -34,7 +34,7 @@ public class SecurityConfig {
                                 // Generator 관련 접근
                                 .requestMatchers("/generator/", "/generator/{generatorId}", "/generator/list/{memberId}").permitAll()
                                 // Bookmark 관련 접근
-                                .requestMatchers("/bookmark/add/{memberId}/{generatorId}", "/bookmark/delete/{bookmarkId}" ).permitAll()
+                                .requestMatchers("/bookmark/add/{memberId}/{generatorId}", "/bookmark/delete/{memberId}/{generatorId}" ).permitAll()
                                 // Crawling 관련 접근
                                 .requestMatchers("/crawl", "/crawl-with-login").permitAll() // /crawl 경로 접근 허용
                                 // 기타 관련 접근
