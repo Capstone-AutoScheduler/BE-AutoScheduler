@@ -38,7 +38,7 @@ public class WebCrawlerService {
 
             // ChromeDriver 설정
             ChromeOptions options = new ChromeOptions();
-            //options.addArguments("--headless"); // GUI 없이 실행
+            options.addArguments("--headless"); // GUI 없이 실행
             options.addArguments("--no-sandbox"); // 보안 설정
             options.addArguments("--disable-dev-shm-usage"); // 메모리 문제 방지
             options.addArguments("--disable-gpu"); //추가한 옵션
