@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-<<<<<<< Updated upstream
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +24,6 @@ import java.util.List;
 //
 
 //}
-=======
-import java.util.Scanner;
->>>>>>> Stashed changes
 
 @Service
 public class WebCrawlerService {
@@ -42,7 +38,7 @@ public class WebCrawlerService {
 
             // ChromeDriver 설정
             ChromeOptions options = new ChromeOptions();
-            //options.addArguments("--headless"); // GUI 없이 실행
+            options.addArguments("--headless"); // GUI 없이 실행
             options.addArguments("--no-sandbox"); // 보안 설정
             options.addArguments("--disable-dev-shm-usage"); // 메모리 문제 방지
             options.addArguments("--disable-gpu"); //추가한 옵션
@@ -58,7 +54,6 @@ public class WebCrawlerService {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.presenceOfElementLocated(org.openqa.selenium.By.tagName("body")));
 
-<<<<<<< Updated upstream
             if(type == 0) {
                 // header의 CSS파일 가져오기
                 String cssFiles = "";
@@ -80,20 +75,6 @@ public class WebCrawlerService {
             }
 
             return htmlContent;
-=======
-//            // HTML 소스 반환
-//            return driver.getPageSource();
-            // HTML 소스 반환
-            String pageSource = driver.getPageSource();
-
-            // 사용자로부터 입력을 받아 브라우저 창 유지
-            System.out.println("브라우저 창을 확인한 후 'Enter' 키를 눌러 종료하세요...");
-            Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();  // 사용자가 엔터를 칠 때까지 대기
-
-            return pageSource;
-
->>>>>>> Stashed changes
 
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException("유효하지 않은 URL 형식입니다: " + url);
