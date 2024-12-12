@@ -37,8 +37,8 @@ public class MemberConverter {
 
     public static MemberResponseDTO.BookmarkPreviewDTO toBookmarkPreviewDTO(Bookmark bookmark) {
         return MemberResponseDTO.BookmarkPreviewDTO.builder()
-                .memberId(bookmark.getMember().getMemberId())
-                .memberName(bookmark.getMember().getName())
+                .memberId(bookmark.getGenerator().getMember().getMemberId())
+                .memberName(bookmark.getGenerator().getMember().getName())
                 .bookmarkId(bookmark.getId())
                 .generatorId(bookmark.getGenerator().getGeneratorId())
                 .generatorTitle(bookmark.getGenerator().getGeneratorTitle())
