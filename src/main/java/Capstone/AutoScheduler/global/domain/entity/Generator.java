@@ -64,6 +64,10 @@ public class Generator extends BaseEntity {
     @Column(name = "webUrl", nullable = true, columnDefinition = "varchar(512)")
     private String webUrl;
 
+    // 로그인이 필요한지 여부
+    @Column(name = "login_required", nullable = false, columnDefinition = "boolean")
+    private boolean loginRequired = false;
+
     // 해당 일정 생성기로 생성한 Event 리스트
     @OneToMany(mappedBy = "generator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Event> events = new ArrayList<>();

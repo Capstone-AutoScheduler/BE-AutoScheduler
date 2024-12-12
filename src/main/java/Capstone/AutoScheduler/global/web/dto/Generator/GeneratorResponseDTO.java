@@ -29,6 +29,7 @@ public class GeneratorResponseDTO {
         List<Map<String, Object>> frames;
         List<Map<String, Object>> mapping;
         String webUrl;
+        Boolean loginRequired;
     }
 
     @Getter
@@ -49,6 +50,7 @@ public class GeneratorResponseDTO {
         List<Map<String, Object>> frames;
         List<Map<String, Object>> mapping;
         String webUrl;
+        Boolean loginRequired;
     }
 
     @Getter
@@ -68,6 +70,7 @@ public class GeneratorResponseDTO {
         List<Map<String, Object>> frames;
         List<Map<String, Object>> mapping;
         String webUrl;
+        Boolean loginRequired;
         boolean isBookmarked;
     }
 
