@@ -18,6 +18,7 @@ public class GeneratorConverter {
                 .mapping(request.getMapping())
                 .sourceType(request.getSourceType())
                 .webUrl(request.getWebUrl())
+                .loginRequired(request.getLoginRequired())
                 .build();
     }
 
@@ -33,6 +34,7 @@ public class GeneratorConverter {
                 .frames(generator.getFrames())
                 .mapping(generator.getMapping())
                 .webUrl(generator.getWebUrl())
+                .loginRequired(generator.isLoginRequired())
                 .build();
     }
 
@@ -48,6 +50,7 @@ public class GeneratorConverter {
                 .frames(generator.getFrames())
                 .mapping(generator.getMapping())
                 .webUrl(generator.getWebUrl())
+                .loginRequired(generator.isLoginRequired())
                 .build();
     }
 
@@ -63,6 +66,7 @@ public class GeneratorConverter {
                 .frames(generator.getFrames())
                 .mapping(generator.getMapping())
                 .webUrl(generator.getWebUrl())
+                .loginRequired(generator.isLoginRequired())
                 .build();
     }
 
@@ -87,6 +91,7 @@ public class GeneratorConverter {
                 .frames(generator.getFrames())
                 .mapping(generator.getMapping())
                 .webUrl(generator.getWebUrl())
+                .loginRequired(generator.isLoginRequired())
                 .isBookmarked(isBookmarked) // 북마크 상태 추가
                 .build();
     }

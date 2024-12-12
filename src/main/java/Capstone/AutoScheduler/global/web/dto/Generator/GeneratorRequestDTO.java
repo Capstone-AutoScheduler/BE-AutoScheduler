@@ -25,5 +25,6 @@ public class GeneratorRequestDTO {
         private List<Map<String, Object>> mapping;
         private TypeSource sourceType;
         private String webUrl;
+        private Boolean loginRequired;
     }
 }

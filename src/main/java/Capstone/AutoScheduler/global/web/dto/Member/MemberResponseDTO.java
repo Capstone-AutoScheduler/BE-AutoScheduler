@@ -47,6 +47,7 @@ public class MemberResponseDTO {
         private List<Map<String, Object>> mapping;
         private String webUrl;
         private boolean isBookmarked;
+        private boolean loginRequired;
         private LocalDateTime createdAt;
     }
 

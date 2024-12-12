@@ -47,6 +47,7 @@ public class MemberConverter {
                 .frames(bookmark.getGenerator().getFrames())
                 .mapping(bookmark.getGenerator().getMapping())
                 .webUrl(bookmark.getGenerator().getWebUrl())
+                .loginRequired(bookmark.getGenerator().isLoginRequired())
                 .isBookmarked(true)
                 .createdAt(bookmark.getCreatedAt())
                 .build();
