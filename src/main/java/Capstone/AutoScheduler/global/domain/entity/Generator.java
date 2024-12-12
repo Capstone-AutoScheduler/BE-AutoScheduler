@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+import javax.net.ssl.SSLSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -74,4 +75,13 @@ public class Generator extends BaseEntity {
         this.events.add(event);
         event.setGenerator(this);
     }
+
+    public Bookmark getBookmarkByMember(Long memberId) {
+        return this.bookmarkList.stream()
+                .filter(bookmark -> bookmark.getMember().getMemberId().equals(memberId))
+                .findFirst()
+                .orElse(null); // 해당 멤버의 북마크가 없을 경우 null 반환
+    }
+
+
 }
