@@ -1,4 +1,5 @@
-# AutoScheduler
+# <img width="30%" alt="스크린샷 2024-12-13 오전 11 41 06" src="https://github.com/user-attachments/assets/c8818f4f-199f-4cae-8725-23f54cf0896c" />
+
 
 AutoScheduler는 자동화 웹 캘린더로 사용자가 정의한 일정 생성기를 통해 원본 데이터를 자동으로 처리하여 캘린더 일정을 생성하는 업무 자동화 도구입니다. 기존의 캘린더 앱에서는 제공하지 않는 강력한 자동화 기능을 통해 데이터 기반 일정 생성 및 관리를 제공합니다.
 
@@ -40,7 +41,7 @@ AutoScheduler는 자동화 웹 캘린더로 사용자가 정의한 일정 생성
 
 ### 일정 생성기 정의
 
-#### [PDF 기반 일정 생성]
+### [PDF 기반 일정 생성]
 1. **새로운 생성기 추가**:
 <img width="80%" alt="image" src="https://github.com/user-attachments/assets/0df15990-c06f-4502-8043-a69e864333bd" />
 
@@ -67,7 +68,7 @@ AutoScheduler는 자동화 웹 캘린더로 사용자가 정의한 일정 생성
 8. **생성기 저장**:
 - 생성기의 제목 및 설명을 작성 후 저장합니다.
 
-#### [WEB 기반 일정 생성]
+### [WEB 기반 일정 생성]
 1. **새로운 생성기 추가**:
 <img width="80%" alt="image" src="https://github.com/user-attachments/assets/16fdb9c5-de1a-482a-aba2-e3c22a71fb47" />
 
@@ -113,6 +114,6 @@ AutoScheduler는 자동화 웹 캘린더로 사용자가 정의한 일정 생성
 
 ---
 
-### [Contributors]
+## Contributors
 **김진호(@Jinho622)[FE]  /  박재현(@ParkJh38)[BE]  /  송영범(@zxc534)[FE]**
 
