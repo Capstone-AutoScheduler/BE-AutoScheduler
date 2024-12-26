@@ -99,7 +99,8 @@ AutoScheduler는 자동화 웹 캘린더로 사용자가 정의한 일정 생성
 ---
 
 ## 기술 스택
-<img width="50%" alt="image" src="https://github.com/user-attachments/assets/34f9bb93-1861-4aa5-a0de-2fc167e3e124" />
+<img width="50%" alt="스크린샷 2024-12-26 오후 4 15 24" src="https://github.com/user-attachments/assets/c71a3cf4-5ee2-473d-8e67-59d42424f290" />
+
 
 - **Frontend**: React
 - **Backend**: Spring Boot
