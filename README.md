@@ -103,8 +103,8 @@ AutoScheduler는 자동화 웹 캘린더로 사용자가 정의한 일정 생성
 
 
 - **Frontend**: React
-- **Backend**: Spring Boot
-- **Database**: PostgreSQL
+- **Backend**: Spring Boot, Selenium
+- **Database**: PostgreSQL, supabase
 - **Deployment**: Docker, AWS EC2
 
 ---
